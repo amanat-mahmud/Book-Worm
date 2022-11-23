@@ -2,15 +2,18 @@ import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import logo from "../../../assets/images/Book worm.png"
 const Navbar = () => {
-    const user = { email: 'abcd', name : 'test' }
+    const user = { email: '', name: 'test' }
+    // 'bg-[#92B4EC] text-white rounded-xl font-semibold hover:bg-black mr-2'
     const menuItem = <>
         <li><NavLink className={({ isActive }) =>
             isActive ? 'bg-[#92B4EC] text-white rounded-xl font-semibold hover:bg-black mr-2' : 'rounded-xl hover:bg-black hover:text-white mr-2'}>Home</NavLink></li>
         <li><NavLink className={({ isActive }) =>
             isActive ? 'bg-[#92B4EC] text-white rounded-xl font-semibold hover:bg-black mr-2' : 'rounded-xl hover:bg-black hover:text-white mr-2'} to='/categories'>Categories</NavLink></li>
+        <li><NavLink className={({ isActive }) =>
+            isActive ? 'bg-[#92B4EC] text-white rounded-xl font-semibold hover:bg-black mr-2' : 'rounded-xl hover:bg-black hover:text-white mr-2'} to='/categories'>Blog</NavLink></li>
         {
             user?.email ? '' : <li><NavLink className={({ isActive }) =>
-                isActive ? ' ' : 'btn border-[#92B4EC] text-[#92b4ec] bg-white rounded-lg hover:text-white hover:border-black'} to='/login'>Log in </NavLink></li>}
+                isActive ? 'flex lg:hidden' : 'btn border-[#92B4EC] text-[#92b4ec] bg-white rounded-lg hover:text-white hover:border-black flex lg:hidden'} to='/login'>Log in </NavLink></li>}
 
     </>
     return (
@@ -36,28 +39,33 @@ const Navbar = () => {
             <div className="navbar-end">
 
                 {
-                    user?.email ? '' : <Link className="btn border-0 bg-[#92B4EC] mr-2">Sign up</Link>}
-                    {
-                        user?.email ? 
+                    user?.email ? '' : <>
+                        <NavLink className={({ isActive }) =>
+                            isActive ? 'hidden lg:flex' : 'btn border-[#92B4EC] text-[#92b4ec] bg-white rounded-lg hover:text-white hover:border-black hidden lg:flex mr-2'} to='/login'>Log in</NavLink>
+                        <NavLink className={({ isActive }) =>
+                            isActive ? '' : "btn border-[#92B4EC] text-[#92b4ec] bg-white rounded-lg hover:text-white hover:border-black  mr-2"} to='/signup'>Sign up</NavLink>
+                    </>}
+                {
+                    user?.email ?
                         <div className="dropdown dropdown-end">
-                    <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-                        <div className="w-10 rounded-full">
-                            <img src="https://placeimg.com/80/80/people" />
-                        </div>
-                    </label>
-                    <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-                        <li>
-                            <p>{user?.name}</p>
-                            <Link className="justify-between">
-                                Profile
-                                <span className="badge">Upcoming</span>
-                            </Link>
-                        </li>
-                        <li><Link>Settings</Link></li>
-                        <Link className="btn border-0 bg-[#92B4EC]">Log out</Link>
-                    </ul>
-                </div> : null
-                    }
+                            <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+                                <div className="w-10 rounded-full">
+                                    <img src="https://placeimg.com/80/80/people" />
+                                </div>
+                            </label>
+                            <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+                                <li>
+                                    <p>{user?.name}</p>
+                                    <Link className="justify-between">
+                                        Profile
+                                        <span className="badge">Upcoming</span>
+                                    </Link>
+                                </li>
+                                <li><Link>Settings</Link></li>
+                                <Link className="btn border-0 bg-[#92B4EC]">Log out</Link>
+                            </ul>
+                        </div> : null
+                }
             </div>
         </div>
     );
