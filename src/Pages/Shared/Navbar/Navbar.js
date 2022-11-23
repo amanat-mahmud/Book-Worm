@@ -2,14 +2,16 @@ import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import logo from "../../../assets/images/Book worm.png"
 const Navbar = () => {
+    const user = { email: 'abcd', name : 'test' }
     const menuItem = <>
         <li><NavLink className={({ isActive }) =>
-            isActive ? 'bg-[#92B4EC] text-white rounded-xl':''}>Home</NavLink></li>
+            isActive ? 'bg-[#92B4EC] text-white rounded-xl font-semibold hover:bg-black mr-2' : 'rounded-xl hover:bg-black hover:text-white mr-2'}>Home</NavLink></li>
         <li><NavLink className={({ isActive }) =>
-            isActive ? 'bg-[#92B4EC] text-white rounded-xl font-bold':''} to='/categories'>Categories</NavLink></li>
-        <li><NavLink className={({ isActive }) =>
-            isActive ? 'bg-[#92B4EC] text-white rounded-xl':''} to='/login'>Log in </NavLink></li>
-        
+            isActive ? 'bg-[#92B4EC] text-white rounded-xl font-semibold hover:bg-black mr-2' : 'rounded-xl hover:bg-black hover:text-white mr-2'} to='/categories'>Categories</NavLink></li>
+        {
+            user?.email ? '' : <li><NavLink className={({ isActive }) =>
+                isActive ? ' ' : 'btn border-[#92B4EC] text-[#92b4ec] bg-white rounded-lg hover:text-white hover:border-black'} to='/login'>Log in </NavLink></li>}
+
     </>
     return (
         <div className="navbar bg-base-100">
@@ -23,7 +25,7 @@ const Navbar = () => {
                     </ul>
                 </div>
                 {/* //className='btn w-1/4 btn-ghost h-1/3' */}
-                <img src={logo} alt="" className='w-20 lg:block hidden'/>
+                <img src={logo} alt="" className='w-20 lg:block hidden' />
                 <Link className="btn btn-ghost normal-case lg:text-xl">Book worm</Link>
             </div>
             <div className="navbar-center hidden lg:flex">
@@ -32,25 +34,30 @@ const Navbar = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-                
-                <Link className="btn border-0 bg-[#92B4EC]">Sign up</Link>
-                <div className="dropdown dropdown-end">
-      <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-        <div className="w-10 rounded-full">
-          <img src="https://placeimg.com/80/80/people" />
-        </div>
-      </label>
-      <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-        <li>
-          <a className="justify-between">
-            Profile
-            <span className="badge">New</span>
-          </a>
-        </li>
-        <li><a>Settings</a></li>
-        <Link className="btn border-0 bg-[#92B4EC]">Log out</Link>
-      </ul>
-    </div>
+
+                {
+                    user?.email ? '' : <Link className="btn border-0 bg-[#92B4EC] mr-2">Sign up</Link>}
+                    {
+                        user?.email ? 
+                        <div className="dropdown dropdown-end">
+                    <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+                        <div className="w-10 rounded-full">
+                            <img src="https://placeimg.com/80/80/people" />
+                        </div>
+                    </label>
+                    <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+                        <li>
+                            <p>{user?.name}</p>
+                            <Link className="justify-between">
+                                Profile
+                                <span className="badge">Upcoming</span>
+                            </Link>
+                        </li>
+                        <li><Link>Settings</Link></li>
+                        <Link className="btn border-0 bg-[#92B4EC]">Log out</Link>
+                    </ul>
+                </div> : null
+                    }
             </div>
         </div>
     );
