@@ -19,7 +19,7 @@ const SingleBook = ({ book }) => {
                 <figure><img src={bookImage} className="h-full w-full lg:w-[255px]" alt="Book cover" /></figure>
                 <div className="card-body lg:w-1/2">
                     <h2 className="card-title">{bookName}</h2>
-                    <p>{author}</p>
+                    <p className='font-bold'>Author: {author}</p>
                     <p>{description}</p>
                     <div className="card-actions justify-end">
                         <p className='text-xl font-bold'>Price: ${price}</p>

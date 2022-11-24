@@ -16,8 +16,8 @@
         "verified":"no",
         "reported":"no",
         "reportedBy":"none",
-        "available":"Yes",
-        "advertised":"Yes",
+        "available":"yes",
+        "advertised":"yes",
         "advertisedOn":""
     },
     {
@@ -38,7 +38,7 @@
         "reported":"no",
         "reportedBy":"none",
         "available":"yes",
-        "advertised":"no",
+        "advertised":"yes",
         "advertisedOn":""
     },
     {
@@ -58,7 +58,7 @@
         "verified":"yes",
         "reported":"no",
         "reportedBy":"none",
-        "available":"no",
+        "available":"yes",
         "advertised":"yes",
         "advertisedOn":""
     }

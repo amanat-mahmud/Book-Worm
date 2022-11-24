@@ -6,7 +6,7 @@ const Navbar = () => {
     // 'bg-[#92B4EC] text-white rounded-xl font-semibold hover:bg-black mr-2'
     const menuItem = <>
         <li><NavLink className={({ isActive }) =>
-            isActive ? 'bg-[#92B4EC] text-white rounded-xl font-semibold hover:bg-black mr-2' : 'rounded-xl hover:bg-black hover:text-white mr-2'}>Home</NavLink></li>
+            isActive ? 'bg-[#92B4EC] text-white rounded-xl font-semibold hover:bg-black mr-2' : 'rounded-xl hover:bg-black hover:text-white mr-2'}to="/">Home</NavLink></li>
         <li><NavLink className={({ isActive }) =>
             isActive ? 'bg-[#92B4EC] text-white rounded-xl font-semibold hover:bg-black mr-2' : 'rounded-xl hover:bg-black hover:text-white mr-2'} to='/categories'>Categories</NavLink></li>
         <li><NavLink className={({ isActive }) =>

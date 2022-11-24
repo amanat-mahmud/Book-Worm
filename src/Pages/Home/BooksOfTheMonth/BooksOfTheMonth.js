@@ -1,10 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
+import PrimaryButton from '../../../Components/PrimaryButton/PrimaryButton';
 import SingleBook from './SingleBook';
 
 const BooksOfTheMonth = () => {
-    const { data: mustReadbooks = [] } = useQuery({
-        queryKey: ['mustReadbooks'],
+    
+    const { data: mustReadBooks = [] } = useQuery({
+        queryKey: ['mustReadBooks'],
         queryFn: async () => {
             const res = await fetch('mustRead.json');
             const data = await res.json();
@@ -19,12 +21,16 @@ const BooksOfTheMonth = () => {
             lg:grid-cols-3 */}
             <div className='mt-5 grid grid-cols-1  gap-2 lg:gap-4'>
                 {
-                    mustReadbooks.map(book=><SingleBook
+                    mustReadBooks.map(book=><SingleBook
                     key={book._id}
                     book={book}
+                    
                     ></SingleBook>)
                 }
             </div>
+            {
+                mustReadBooks.length>2 && mustReadBooks ? <div className='text-center mt-10'><PrimaryButton>See More</PrimaryButton></div>:''
+            }
         </div>
     );
 };
