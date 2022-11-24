@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import PrimaryButton from '../../../Components/PrimaryButton/PrimaryButton';
 import AdvertisedSingleItem from './AdvertisedSingleItem';
 const AdvertisedItems = () => {
@@ -30,7 +31,8 @@ const AdvertisedItems = () => {
                 }
             </div>
             {
-                availableAdvertisedBooks.length>2 ? <div className='text-center mt-10'><PrimaryButton>See More</PrimaryButton></div>:''
+                availableAdvertisedBooks.length>2 ? <div className='text-center mt-10'><Link to="/advertised">
+                <PrimaryButton>See More</PrimaryButton></Link></div>:''
             }
         </div>
     );

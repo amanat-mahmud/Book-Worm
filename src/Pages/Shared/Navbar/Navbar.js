@@ -1,16 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import logo from "../../../assets/images/Book worm.png"
+import { AuthContext } from '../../../context/AuthProvider';
 const Navbar = () => {
-    const user = { email: '', name: 'test' }
+    const {user,logOut} = useContext(AuthContext) 
     // 'bg-[#92B4EC] text-white rounded-xl font-semibold hover:bg-black mr-2'
     const menuItem = <>
         <li><NavLink className={({ isActive }) =>
             isActive ? 'bg-[#92B4EC] text-white rounded-xl font-semibold hover:bg-black mr-2' : 'rounded-xl hover:bg-black hover:text-white mr-2'}to="/">Home</NavLink></li>
         <li><NavLink className={({ isActive }) =>
             isActive ? 'bg-[#92B4EC] text-white rounded-xl font-semibold hover:bg-black mr-2' : 'rounded-xl hover:bg-black hover:text-white mr-2'} to='/categories'>Categories</NavLink></li>
-        <li><NavLink className={({ isActive }) =>
-            isActive ? 'bg-[#92B4EC] text-white rounded-xl font-semibold hover:bg-black mr-2' : 'rounded-xl hover:bg-black hover:text-white mr-2'} to='/categories'>Advertised</NavLink></li>
+        <li><NavLink to="/advertised" className={({ isActive }) =>
+            isActive ? 'bg-[#92B4EC] text-white rounded-xl font-semibold hover:bg-black mr-2' : 'rounded-xl hover:bg-black hover:text-white mr-2'}>Advertised</NavLink></li>
         <li><NavLink className={({ isActive }) =>
             isActive ? 'bg-[#92B4EC] text-white rounded-xl font-semibold hover:bg-black mr-2' : 'rounded-xl hover:bg-black hover:text-white mr-2'} to='/categories'>Blog</NavLink></li>
         <div className="form-control flex md:hidden my-2 w-3/4">
@@ -23,6 +24,11 @@ const Navbar = () => {
 
 
     </>
+    const handleSingOut = () =>{
+        logOut()
+        .then()
+        .catch()
+    }
     return (
         <div className="navbar bg-base-100">
             <div className="navbar-start">
@@ -60,19 +66,19 @@ const Navbar = () => {
                         <div className="dropdown dropdown-end">
                             <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                                 <div className="w-10 rounded-full">
-                                    <img src="https://placeimg.com/80/80/people" />
+                                    <img src={user?.photoURL} alt="user"/>
                                 </div>
                             </label>
                             <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
                                 <li>
-                                    <p>{user?.name}</p>
+                                    <p>{user?.displayName}</p>
                                     <Link className="justify-between">
                                         Profile
                                         <span className="badge">Upcoming</span>
                                     </Link>
                                 </li>
                                 <li><Link>Settings</Link></li>
-                                <Link className="btn border-0 bg-[#92B4EC]">Log out</Link>
+                                <Link className="btn border-0 bg-[#92B4EC]" onClick={handleSingOut}>Log out</Link>
                             </ul>
                         </div> : null
                 }
