@@ -34,7 +34,7 @@ const SignUp = () => {
                                 },
                                 body: JSON.stringify(user)
                             })
-                                .then(res=>{
+                                .then(res => {
                                     generateToken(data.email)
                                 })
                                 .catch()
@@ -47,8 +47,7 @@ const SignUp = () => {
     }
     const handleGoogle = () => {
         googleLogin()
-            .then(res => {
-                console.log(res.user)
+        .then(res => {
                 const user = {
                     name: res.user.displayName,
                     imgUrl: res.user.photoURL,
@@ -56,9 +55,19 @@ const SignUp = () => {
                     role: "user",
                     verified: "no"
                 }
+                fetch('http://localhost:5000/user', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(user)
+                })
+                .then(response => {
+                    generateToken(res.user.email)
+                }).catch()
                 navigate('/')
             })
-            .catch()
+        .catch()
     }
 
     return (
