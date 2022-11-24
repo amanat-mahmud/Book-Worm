@@ -1,5 +1,5 @@
 import React from 'react';
-import AdvertisedItems from './AdvertisedItems';
+import AdvertisedItems from './AdvertisedItems/AdvertisedItems';
 import Hero from './Hero';
 import SecondHandProdCategories from './SecondHandProdCategories';
 

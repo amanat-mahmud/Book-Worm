@@ -1,6 +1,6 @@
 import React from 'react';
 
-const AdvertisedItems = () => {
+const BooksOfTheMonth = () => {
     return (
         <div>
             
@@ -8,4 +8,4 @@ const AdvertisedItems = () => {
     );
 };
 
-export default AdvertisedItems;
+export default BooksOfTheMonth;

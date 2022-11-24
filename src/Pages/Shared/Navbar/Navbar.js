@@ -11,9 +11,14 @@ const Navbar = () => {
             isActive ? 'bg-[#92B4EC] text-white rounded-xl font-semibold hover:bg-black mr-2' : 'rounded-xl hover:bg-black hover:text-white mr-2'} to='/categories'>Categories</NavLink></li>
         <li><NavLink className={({ isActive }) =>
             isActive ? 'bg-[#92B4EC] text-white rounded-xl font-semibold hover:bg-black mr-2' : 'rounded-xl hover:bg-black hover:text-white mr-2'} to='/categories'>Blog</NavLink></li>
+        <div className="form-control flex md:hidden my-2 w-3/4">
+            <input type="text" placeholder="Search"
+                className="input  input-bordered mr-2 border-[#92B4EC]" />
+        </div>
         {
             user?.email ? '' : <li><NavLink className={({ isActive }) =>
                 isActive ? 'flex lg:hidden' : 'btn border-[#92B4EC] text-[#92b4ec] bg-white rounded-lg hover:text-white hover:border-black flex lg:hidden'} to='/login'>Log in </NavLink></li>}
+
 
     </>
     return (
@@ -37,7 +42,10 @@ const Navbar = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-
+                <div className="form-control hidden md:flex">
+                    <input type="text" placeholder="Search"
+                        className="input  input-bordered border-[#92B4EC] mr-2" />
+                </div>
                 {
                     user?.email ? '' : <>
                         <NavLink className={({ isActive }) =>
