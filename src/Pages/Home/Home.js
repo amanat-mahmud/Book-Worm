@@ -1,7 +1,7 @@
 import React from 'react';
 import AdvertisedItems from './AdvertisedItems/AdvertisedItems';
 import Hero from './Hero';
-import SecondHandProdCategories from './SecondHandProdCategories';
+import SecondHandProdCategories from './Category/SecondHandProdCategories';
 
 const Home = () => {
     return (

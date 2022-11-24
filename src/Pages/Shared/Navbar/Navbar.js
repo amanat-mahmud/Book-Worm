@@ -10,6 +10,8 @@ const Navbar = () => {
         <li><NavLink className={({ isActive }) =>
             isActive ? 'bg-[#92B4EC] text-white rounded-xl font-semibold hover:bg-black mr-2' : 'rounded-xl hover:bg-black hover:text-white mr-2'} to='/categories'>Categories</NavLink></li>
         <li><NavLink className={({ isActive }) =>
+            isActive ? 'bg-[#92B4EC] text-white rounded-xl font-semibold hover:bg-black mr-2' : 'rounded-xl hover:bg-black hover:text-white mr-2'} to='/categories'>Advertised</NavLink></li>
+        <li><NavLink className={({ isActive }) =>
             isActive ? 'bg-[#92B4EC] text-white rounded-xl font-semibold hover:bg-black mr-2' : 'rounded-xl hover:bg-black hover:text-white mr-2'} to='/categories'>Blog</NavLink></li>
         <div className="form-control flex md:hidden my-2 w-3/4">
             <input type="text" placeholder="Search"
