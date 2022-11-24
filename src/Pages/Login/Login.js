@@ -1,30 +1,29 @@
 import React, { useContext, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { getImageUrl } from '../../api/getImageUrl';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider';
 import { useForm } from "react-hook-form";
 import { generateToken } from '../../api/generateToken';
 
 const Login = () => {
-  //12ABcd!
+  const { register, formState: { errors }, handleSubmit } = useForm();
   const [logInError, setLogInError] = useState('');
     const { singIn, googleLogin } = useContext(AuthContext);
-  
-    const { register, formState: { errors }, handleSubmit } = useForm();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || '/';
     const navigate = useNavigate();
     const onSubmit = (data) => {
         setLogInError('');
         singIn(data.email, data.password)
         .then(() => {
             generateToken(data.email)
-            navigate('/')})
+            navigate(from, { replace: true })})
         .catch(err => setLogInError(err.message))
     }
     const handleGoogle = () => {
         googleLogin()
         .then(res => {
           generateToken(res.user.email)
-          navigate('/')})
+          navigate(from, { replace: true })})
         .catch()
     }
     return (
