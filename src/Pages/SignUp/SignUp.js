@@ -130,9 +130,6 @@ const SignUp = () => {
                                         minLength: { value: 6, message: "Password must be 6 characters long" },
                                         pattern: { value: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])/, message: 'Password must have uppercase, number and special characters' }
                                     })} type="password" placeholder="password" className="input input-bordered" />
-                                    <label className="label">
-                                        <Link className="label-text-alt link link-hover">Forgot password?</Link>
-                                    </label>
                                     {errors.password && <p className='text-red-500'>{errors.password.message}</p>}
                                 </div>
                                 <div className="form-control mt-6">

@@ -26,7 +26,9 @@ const Navbar = () => {
     </>
     const handleSingOut = () =>{
         logOut()
-        .then()
+        .then(res=>{
+            localStorage.removeItem('accessToken')
+        })
         .catch()
     }
     return (
