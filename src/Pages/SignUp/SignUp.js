@@ -3,51 +3,64 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider';
 import { useForm } from "react-hook-form";
 import { getImageUrl } from '../../api/getImageUrl';
+import { generateToken } from '../../api/generateToken';
 
 const SignUp = () => {
     const [singUpError, setSingUpError] = useState('');
-    const { signUpUser, updateUser,googleLogin } = useContext(AuthContext);
+    const { signUpUser, updateUser, googleLogin } = useContext(AuthContext);
     const { register, formState: { errors }, handleSubmit } = useForm();
     const navigate = useNavigate();
     const onSubmit = (data) => {
         setSingUpError('');
         console.log(data.photo[0]);
-        getImageUrl(data.photo[0]).then(imgData=>{
+        getImageUrl(data.photo[0]).then(imgData => {
             console.log(imgData)
             const user = {
                 name: data.name,
-                imgUrl:imgData,
-                email:data.email,
-                role:data.role,
-                verified:"no"
+                imgUrl: imgData,
+                email: data.email,
+                role: data.role,
+                verified: "no"
             }
             signUpUser(data.email, data.password)
-            .then(res => {
-                console.log(user)
-                updateUser(imgData)
-                .then(res=>{
-                    navigate('/')
+                .then(res => {
+                    console.log(user)
+                    updateUser(imgData)
+                        .then(res => {
+                            fetch('http://localhost:5000/user', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify(user)
+                            })
+                                .then(res=>{
+                                    generateToken(data.email)
+                                })
+                                .catch()
+                            navigate('/')
+                        })
+                        .catch(err => console.log(err.message))
                 })
-                .catch(err=>console.log(err.message))
-            })
-            .catch(err => setSingUpError(err.message))
+                .catch(err => setSingUpError(err.message))
         })
     }
-    const handleGoogle = () =>{
+    const handleGoogle = () => {
         googleLogin()
-        .then(res=>{console.log(res.user)
-        const user ={
-                name: res.user.displayName,
-                imgUrl:res.user.photoURL,
-                email:res.user.email,
-                role:"user",
-                verified:"no"
-        }
-        navigate('/')
-        })
-        .catch()
+            .then(res => {
+                console.log(res.user)
+                const user = {
+                    name: res.user.displayName,
+                    imgUrl: res.user.photoURL,
+                    email: res.user.email,
+                    role: "user",
+                    verified: "no"
+                }
+                navigate('/')
+            })
+            .catch()
     }
-    
+
     return (
         <div>
             <div className="hero min-h-screen bg-base-200">
@@ -82,8 +95,8 @@ const SignUp = () => {
                                     <label className="label">
                                         <span className="label-text">Upload your image</span>
                                     </label>
-                                    <input {...register("photo",{
-                                        required:"Image is required"
+                                    <input {...register("photo", {
+                                        required: "Image is required"
                                     })} type="file" className="file-input file-input-bordered w-full max-w-xs" />
                                     {errors.photo && <p role="alert" className='text-red-600'>
                                         {errors.photo?.message}</p>}
