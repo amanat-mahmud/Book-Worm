@@ -1,0 +1,26 @@
+[
+    {
+        "_id":"1",
+        "bookName":"Harry Potter and the Philosopher's Stone",
+        "bookImage":"https://upload.wikimedia.org/wikipedia/en/6/6b/Harry_Potter_and_the_Philosopher%27s_Stone_Book_Cover.jpg",
+        "author":"J.K. Rowling",
+        "description":"Harry Potter and the Philosopher's Stone is a 1997 fantasy novel written by British author J. K. Rowling. The first novel in the Harry Potter series and Rowling's debut novel, it follows Harry Potter, a young wizard who discovers his magical heritage on his eleventh birthday, when he receives a letter of acceptance to Hogwarts School of Witchcraft and Wizardry. Harry makes close friends and a few enemies during his first year at the school and with the help of his friends, he faces an attempted comeback by the dark wizard Lord Voldemort, who killed Harry's parents, but failed to kill Harry when he was just 15 months old.",
+        "price":"500"
+    },
+    {
+        "_id":"2",
+        "bookName":"The Hobbit",
+        "bookImage":"https://upload.wikimedia.org/wikipedia/en/thumb/4/4a/TheHobbit_FirstEdition.jpg/220px-TheHobbit_FirstEdition.jpg",
+        "author":"J.R.R.Tolkien",
+        "description":"The Hobbit, or There and Back Again is a children's fantasy novel by English author J. R. R. Tolkien. It was published in 1937 to wide critical acclaim, being nominated for the Carnegie Medal and awarded a prize from the New York Herald Tribune for best juvenile fiction. The book remains popular and is recognized as a classic in children's literature.The Hobbit is set within Tolkien's fictional universe and follows the quest of home-loving Bilbo Baggins, the titular hobbit, to win a share of the treasure guarded by a dragon named Smaug. Bilbo's journey takes him from his light-hearted, rural surroundings into more sinister territory.The story is told in the form of an episodic quest, and most chapters introduce a specific creature or type of creature of Tolkien's geography. Bilbo gains a new level of maturity, competence, and wisdom by accepting the disreputable, romantic, fey, and adventurous sides of his nature and applying his wits and common sense. The story reaches its climax in the Battle of Five Armies, where many of the characters and creatures from earlier chapters re-emerge to engage in conflict.",
+        "price":"100"
+    },
+    {
+        "_id":"3",
+        "bookName":"A Tale of Two Cities",
+        "bookImage":"https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Tales_serial.jpg/220px-Tales_serial.jpg",
+        "author":"Charles Dickens",
+        "description":"A Tale of Two Cities is an historical novel published in 1859 by Charles Dickens, set in London and Paris before and during the French Revolution. The novel tells the story of the French Doctor Manette, his 18-year-long imprisonment in the Bastille in Paris, and his release to live in London with his daughter Lucie whom he had never met. The story is set against the conditions that led up to the French Revolution and the Reign of Terror. In the Introduction to the Encyclopedia of Adventure Fiction, critic Don D'Ammassa argues that it is an adventure novel because the protagonists are in constant danger of being imprisoned or killed.As Dickens's best-known work of historical fiction, A Tale of Two Cities is said to be one of the best-selling novels of all time.[3][4][5] In 2003, the novel was ranked 63rd on the BBC's The Big Read poll.[6] The novel has been adapted for film, television, radio, and the stage, and has continued to influence popular culture.",
+        "price":"50"
+    }
+]
