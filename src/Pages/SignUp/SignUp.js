@@ -4,6 +4,8 @@ import { AuthContext } from '../../context/AuthProvider';
 import { useForm } from "react-hook-form";
 import { getImageUrl } from '../../api/getImageUrl';
 import { generateToken } from '../../api/generateToken';
+import axios from 'axios';
+import toast from 'react-hot-toast';
 
 const SignUp = () => {
     const [singUpError, setSingUpError] = useState('');
@@ -12,33 +14,28 @@ const SignUp = () => {
     const navigate = useNavigate();
     const onSubmit = (data) => {
         setSingUpError('');
-        console.log(data.photo[0]);
         getImageUrl(data.photo[0]).then(imgData => {
-            console.log(imgData)
-            const user = {
-                name: data.name,
-                imgUrl: imgData,
-                email: data.email,
-                role: data.role,
-                verified: "no"
-            }
             signUpUser(data.email, data.password)
                 .then(res => {
-                    console.log(user)
                     updateUser(imgData)
                         .then(res => {
-                            fetch('http://localhost:5000/user', {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/json'
-                                },
-                                body: JSON.stringify(user)
+                            axios.post('http://localhost:5000/user', {
+                                name: data.name,
+                                imgUrl: imgData,
+                                email: data.email,
+                                role: data.role,
+                                verified: "no"
+                              }).then(response=>{
+                                if(response.data.acknowledged){
+                                    console.log(response.data.acknowledged)
+                                    toast.success("Sign up Successful")
+                                    navigate('/')
+                                }})
+                              .catch(err=>{
+                                console.log(err)
+                                toast.error("Sign up error")
                             })
-                                .then(res => {
-                                    generateToken(data.email)
-                                })
-                                .catch()
-                            navigate('/')
+                             
                         })
                         .catch(err => console.log(err.message))
                 })
@@ -63,11 +60,14 @@ const SignUp = () => {
                     body: JSON.stringify(user)
                 })
                 .then(response => {
-                    generateToken(res.user.email)
-                }).catch()
+                    console.log(response);
+                    //toast doen't work here
+                    }).catch(err=>console.log("Error in fetch",err.message))
+                generateToken(res.user.email)
+                toast.success("Sign up Successful")
                 navigate('/')
             })
-        .catch()
+        .catch(err=>toast.error("Sign up error"))
     }
 
     return (
