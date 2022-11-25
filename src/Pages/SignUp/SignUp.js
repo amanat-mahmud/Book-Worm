@@ -6,10 +6,11 @@ import { getImageUrl } from '../../api/getImageUrl';
 import { generateToken } from '../../api/generateToken';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import { useSetRole } from '../../api/useSetRole';
 
 const SignUp = () => {
     const [singUpError, setSingUpError] = useState('');
-    const { signUpUser, updateUser, googleLogin } = useContext(AuthContext);
+    const { signUpUser, updateUser, googleLogin,setUserRole } = useContext(AuthContext);
     const { register, formState: { errors }, handleSubmit } = useForm();
     const navigate = useNavigate();
     const onSubmit = (data) => {
@@ -26,16 +27,17 @@ const SignUp = () => {
                                 role: data.role,
                                 verified: "no"
                               }).then(response=>{
-                                if(response.data.acknowledged){
-                                    console.log(response.data.acknowledged)
-                                    toast.success("Sign up Successful")
-                                    navigate('/')
-                                }})
+                                // if(response.data.acknowledged){}
+
+                                })
                               .catch(err=>{
                                 console.log(err)
                                 toast.error("Sign up error")
                             })
-                             
+                            generateToken(data.email)
+                            setUserRole(data.role)
+                            toast.success("Sign up Successful")
+                            navigate('/')
                         })
                         .catch(err => console.log(err.message))
                 })
@@ -61,8 +63,9 @@ const SignUp = () => {
                 })
                 .then(response => {
                     console.log(response);
-                    //toast doen't work here
+                    //toast doesn't work here
                     }).catch(err=>console.log("Error in fetch",err.message))
+                setUserRole("user");
                 generateToken(res.user.email)
                 toast.success("Sign up Successful")
                 navigate('/')
@@ -95,7 +98,8 @@ const SignUp = () => {
                                     <label className="label">
                                         <span className="label-text">Select Role</span>
                                     </label>
-                                    <select className="select select-bordered w-full max-w-xs" {...register("role")}>
+                                    <select className="select select-bordered w-full max-w-xs" {...register("role")}
+                                    >
                                         <option value={"user"}>User</option>
                                         <option value={"seller"}>Seller</option>
                                     </select>

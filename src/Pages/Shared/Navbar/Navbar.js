@@ -1,13 +1,13 @@
 import React, { useContext } from 'react';
+import toast from 'react-hot-toast';
 import { Link, NavLink } from 'react-router-dom';
 import logo from "../../../assets/images/Book worm.png"
 import { AuthContext } from '../../../context/AuthProvider';
 const Navbar = () => {
-    const {user,logOut} = useContext(AuthContext) 
-    // 'bg-[#92B4EC] text-white rounded-xl font-semibold hover:bg-black mr-2'
+    const { user, logOut, userRole } = useContext(AuthContext)
     const menuItem = <>
         <li><NavLink className={({ isActive }) =>
-            isActive ? 'bg-[#92B4EC] text-white rounded-xl font-semibold hover:bg-black mr-2' : 'rounded-xl hover:bg-black hover:text-white mr-2'}to="/">Home</NavLink></li>
+            isActive ? 'bg-[#92B4EC] text-white rounded-xl font-semibold hover:bg-black mr-2' : 'rounded-xl hover:bg-black hover:text-white mr-2'} to="/">Home</NavLink></li>
         <li><NavLink className={({ isActive }) =>
             isActive ? 'bg-[#92B4EC] text-white rounded-xl font-semibold hover:bg-black mr-2' : 'rounded-xl hover:bg-black hover:text-white mr-2'} to='/categories'>Categories</NavLink></li>
         <li><NavLink to="/advertised" className={({ isActive }) =>
@@ -24,12 +24,13 @@ const Navbar = () => {
 
 
     </>
-    const handleSingOut = () =>{
+    const handleSingOut = () => {
         logOut()
-        .then(res=>{
-            localStorage.removeItem('accessToken')
-        })
-        .catch()
+            .then(res => {
+                localStorage.removeItem('accessToken')
+                toast.success("Logged out")
+            })
+            .catch()
     }
     return (
         <div className="navbar bg-base-100">
@@ -68,7 +69,7 @@ const Navbar = () => {
                         <div className="dropdown dropdown-end">
                             <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                                 <div className="w-10 rounded-full">
-                                    <img src={user?.photoURL} alt="user"/>
+                                    <img src={user?.photoURL} alt="user" />
                                 </div>
                             </label>
                             <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
@@ -79,8 +80,12 @@ const Navbar = () => {
                                         <span className="badge">Upcoming</span>
                                     </Link>
                                 </li>
+                                {
+                                    userRole === "user" ? <li><Link>User</Link></li> :
+                                        <li><Link>Not user</Link></li>
+                                }
                                 <li><Link>Settings</Link></li>
-                                <Link className="btn border-0 bg-[#92B4EC]" onClick={handleSingOut}>Log out</Link>
+                                <Link className="btn border-0 bg-[#92B4EC] mt-1" onClick={handleSingOut}>Log out</Link>
                             </ul>
                         </div> : null
                 }
