@@ -6,7 +6,6 @@ import { getImageUrl } from '../../api/getImageUrl';
 import { generateToken } from '../../api/generateToken';
 import axios from 'axios';
 import toast from 'react-hot-toast';
-import { useSetRole } from '../../api/useSetRole';
 
 const SignUp = () => {
     const [singUpError, setSingUpError] = useState('');
@@ -27,14 +26,14 @@ const SignUp = () => {
                                 role: data.role,
                                 verified: "no"
                               }).then(response=>{
-                                // if(response.data.acknowledged){}
-
-                                })
+                                if(response.data.acknowledged){
+                                    generateToken(data.email)
+                                }})
                               .catch(err=>{
                                 console.log(err)
                                 toast.error("Sign up error")
                             })
-                            generateToken(data.email)
+                            
                             setUserRole(data.role)
                             toast.success("Sign up Successful")
                             navigate('/')

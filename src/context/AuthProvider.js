@@ -4,7 +4,6 @@ import {
     getAuth, GoogleAuthProvider, createUserWithEmailAndPassword, updateProfile, signOut,
     signInWithEmailAndPassword, onAuthStateChanged, signInWithPopup
 } from 'firebase/auth'
-import { getRole } from '../api/useSetRole';
 export const AuthContext = createContext();
 const auth = getAuth(app);
 const googleProvider = new GoogleAuthProvider();

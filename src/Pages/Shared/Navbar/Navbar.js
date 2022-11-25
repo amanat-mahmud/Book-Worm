@@ -81,8 +81,12 @@ const Navbar = () => {
                                     </Link>
                                 </li>
                                 {
-                                    userRole === "user" ? <li><Link>User</Link></li> :
-                                        <li><Link>Not user</Link></li>
+                                    userRole === "user" ? <li><Link>My orders</Link></li> :
+                                        <>
+                                        <li><Link>Add a product</Link></li>
+                                        <li><Link>My products</Link></li>
+                                        <li><Link>My buyers</Link></li>
+                                        </>
                                 }
                                 <li><Link>Settings</Link></li>
                                 <Link className="btn border-0 bg-[#92B4EC] mt-1" onClick={handleSingOut}>Log out</Link>

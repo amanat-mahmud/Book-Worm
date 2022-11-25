@@ -18,7 +18,8 @@
         "reportedBy":"none",
         "available":"yes",
         "advertised":"yes",
-        "advertisedOn":""
+        "advertisedOn":"",
+        "sold_to":""
     },
     {
         "_id":"2",
