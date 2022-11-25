@@ -4,10 +4,11 @@ import { AuthContext } from '../../context/AuthProvider';
 import { useForm } from "react-hook-form";
 import { generateToken } from '../../api/generateToken';
 import toast from 'react-hot-toast';
+import LoadingButton from '../Shared/LoadingButton/LoadingButton';
 const Login = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
     const [logInError, setLogInError] = useState('');
-    const { singIn, googleLogin, setUserRole } = useContext(AuthContext);
+    const { singIn, googleLogin, setUserRole, loading,setLoading } = useContext(AuthContext);
     const location = useLocation();
     const from = location.state?.from?.pathname || '/';
     const navigate = useNavigate();
@@ -24,7 +25,9 @@ const Login = () => {
                 })
                 
             })
-            .catch(err => setLogInError(err.message))
+            .catch(err => {setLogInError(err.message)
+            setLoading(false)
+            })
     }
     const handleGoogle = () => {
         googleLogin()
@@ -34,8 +37,8 @@ const Login = () => {
                     setUserRole("user")
                     toast.success("Log in successful")
                     navigate(from, { replace: true })
-                })
-            })
+                }).catch()
+            }).catch(()=>setLoading(false))
             
 
     }
@@ -74,7 +77,7 @@ const Login = () => {
                                     {errors.password && <p className='text-red-500'>{errors.password.message}</p>}
                                 </div>
                                 <div className="form-control mt-6">
-                                    <button type='submit' className="btn bg-[#92B4EC] border-[#92B4EC]">log in</button>
+                                    { loading ? <LoadingButton></LoadingButton> :<button type='submit' className="btn bg-[#92B4EC] border-[#92B4EC]">log in</button>}
                                 </div>
                                 {logInError && <p className='text-red-500'>{logInError}</p>}
                             </form>

@@ -35,7 +35,7 @@ const SideBar = () => {
                             </>: null
                         }
                         {
-                            userRole ==="admin"   ?<>
+                            userRole ==="admin" ?<>
                             <li><Link>All seller</Link></li>
                             <li><Link>All buyer</Link></li>
                             <li><Link>Reported Items</Link></li>

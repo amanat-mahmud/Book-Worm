@@ -15,17 +15,21 @@ const AuthProvider = ({ children }) => {
         return createUserWithEmailAndPassword(auth, email, password);
     }
     const updateUser = (photo) => {
+        setLoading(true);
         return updateProfile(auth.currentUser, {
             photoURL: photo
         })
     }
     const singIn = (email, password) => {
+        setLoading(true);
         return signInWithEmailAndPassword(auth, email, password)
     }
     const googleLogin = () => {
+        setLoading(true);
         return signInWithPopup(auth, googleProvider)
     }
     const logOut = () => {
+        setLoading(true);
         return signOut(auth)
     }
     useEffect(() => {

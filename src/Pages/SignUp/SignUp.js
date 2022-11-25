@@ -6,10 +6,11 @@ import { getImageUrl } from '../../api/getImageUrl';
 import { generateToken } from '../../api/generateToken';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import LoadingButton from '../Shared/LoadingButton/LoadingButton';
 
 const SignUp = () => {
     const [singUpError, setSingUpError] = useState('');
-    const { signUpUser, updateUser, googleLogin,setUserRole } = useContext(AuthContext);
+    const { signUpUser, updateUser, googleLogin,setUserRole,loading,setLoading } = useContext(AuthContext);
     const { register, formState: { errors }, handleSubmit } = useForm();
     const navigate = useNavigate();
     const onSubmit = (data) => {
@@ -40,7 +41,10 @@ const SignUp = () => {
                         })
                         .catch(err => console.log(err.message))
                 })
-                .catch(err => setSingUpError(err.message))
+                .catch(err => 
+                    {setSingUpError(err.message)
+                    setLoading(false)    
+                })
         })
     }
     const handleGoogle = () => {
@@ -69,7 +73,10 @@ const SignUp = () => {
                 toast.success("Sign up Successful")
                 navigate('/')
             })
-        .catch(err=>toast.error("Sign up error"))
+        .catch(err=>{
+            toast.error("Sign up error")
+            setLoading(false) 
+        })
     }
 
     return (
@@ -136,7 +143,9 @@ const SignUp = () => {
                                     {errors.password && <p className='text-red-500'>{errors.password.message}</p>}
                                 </div>
                                 <div className="form-control mt-6">
-                                    <button type='submit' className="btn bg-[#92B4EC] border-[#92B4EC]">Sign up</button>
+                                    {
+                                        loading ? <LoadingButton></LoadingButton> :<button type='submit' className="btn bg-[#92B4EC] border-[#92B4EC]">Sign up</button>
+                                    }
                                 </div>
                                 {singUpError && <p className='text-red-500'>{singUpError}</p>}
                             </form>
