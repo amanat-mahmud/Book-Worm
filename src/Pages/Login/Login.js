@@ -4,9 +4,6 @@ import { AuthContext } from '../../context/AuthProvider';
 import { useForm } from "react-hook-form";
 import { generateToken } from '../../api/generateToken';
 import toast from 'react-hot-toast';
-
-
-
 const Login = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
     const [logInError, setLogInError] = useState('');
@@ -19,8 +16,13 @@ const Login = () => {
         singIn(data.email, data.password)
             .then(() => {
                 generateToken(data.email)
-                toast.success("Log in successful")
-                navigate(from, { replace: true })
+                .then(()=>{
+                    // user role is not done here
+                    // is done in other components when needed
+                    toast.success("Log in successful")
+                    navigate(from, { replace: true })
+                })
+                
             })
             .catch(err => setLogInError(err.message))
     }
@@ -28,12 +30,14 @@ const Login = () => {
         googleLogin()
             .then(res => {
                 generateToken(res.user.email)
-                //   console.log(res.user.email);
-                setUserRole("user")
-                toast.success("Log in successful")
-                navigate(from, { replace: true })
+                .then(()=>{
+                    setUserRole("user")
+                    toast.success("Log in successful")
+                    navigate(from, { replace: true })
+                })
             })
-            .catch()
+            
+
     }
     return (
         <div>

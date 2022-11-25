@@ -4,7 +4,7 @@ import { Link, NavLink } from 'react-router-dom';
 import logo from "../../../assets/images/Book worm.png"
 import { AuthContext } from '../../../context/AuthProvider';
 const Navbar = () => {
-    const { user, logOut, userRole } = useContext(AuthContext)
+    const { user, logOut} = useContext(AuthContext)
     const menuItem = <>
         <li><NavLink className={({ isActive }) =>
             isActive ? 'bg-[#92B4EC] text-white rounded-xl font-semibold hover:bg-black mr-2' : 'rounded-xl hover:bg-black hover:text-white mr-2'} to="/">Home</NavLink></li>
@@ -80,14 +80,7 @@ const Navbar = () => {
                                         <span className="badge">Upcoming</span>
                                     </Link>
                                 </li>
-                                {
-                                    userRole === "user" ? <li><Link>My orders</Link></li> :
-                                        <>
-                                        <li><Link>Add a product</Link></li>
-                                        <li><Link>My products</Link></li>
-                                        <li><Link>My buyers</Link></li>
-                                        </>
-                                }
+                                <li><Link to="/dashboard">DashBoard</Link></li>
                                 <li><Link>Settings</Link></li>
                                 <Link className="btn border-0 bg-[#92B4EC] mt-1" onClick={handleSingOut}>Log out</Link>
                             </ul>
