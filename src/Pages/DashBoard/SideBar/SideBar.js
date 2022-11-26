@@ -39,11 +39,11 @@ const SideBar = () => {
                     {
                         userRole === "admin" ? <>
                             <li><NavLink className={({ isActive }) =>
-                                isActive ? 'bg-[#92B4EC] text-white rounded-xl font-semibold hover:bg-black mb-2' : 'rounded-xl hover:bg-black hover:text-white mb-2'}>All seller</NavLink></li>
+                                isActive ? 'bg-[#92B4EC] text-white rounded-xl font-semibold hover:bg-black mb-2' : 'rounded-xl hover:bg-black hover:text-white mb-2'} to="/dashboard/allseller">All seller</NavLink></li>
                             <li><NavLink className={({ isActive }) =>
-                                isActive ? 'bg-[#92B4EC] text-white rounded-xl font-semibold hover:bg-black mb-2' : 'rounded-xl hover:bg-black hover:text-white mb-2'}>All buyer</NavLink></li>
+                                isActive ? 'bg-[#92B4EC] text-white rounded-xl font-semibold hover:bg-black mb-2' : 'rounded-xl hover:bg-black hover:text-white mb-2'} to="/dashboard/allbuyer">All buyer</NavLink></li>
                             <li><NavLink className={({ isActive }) =>
-                                isActive ? 'bg-[#92B4EC] text-white rounded-xl font-semibold hover:bg-black' : 'rounded-xl hover:bg-black hover:text-white'}>Reported Items</NavLink></li>
+                                isActive ? 'bg-[#92B4EC] text-white rounded-xl font-semibold hover:bg-black' : 'rounded-xl hover:bg-black hover:text-white'}to="/dashboard/reported">Reported Items</NavLink></li>
                         </> : null
                     }
                 </ul>

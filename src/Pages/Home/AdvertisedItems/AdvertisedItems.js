@@ -16,7 +16,9 @@ const AdvertisedItems = () => {
     const availableAdvertisedBooks = books.filter(book => book.advertised === "yes" && book.available === "yes")
     // console.log(availableAdvertisedBooks);
     return (
-        <div className='lg:mx-24'>
+        <>
+        {   availableAdvertisedBooks.length >0 ?
+            <div className='lg:mx-24'>
             <h1 className='text-5xl font-bold'>Advertised</h1>
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4  mt-5'>
                 {
@@ -34,7 +36,9 @@ const AdvertisedItems = () => {
                 availableAdvertisedBooks.length > 2 ? <div className='text-center mt-10'><Link to="/advertised">
                     <PrimaryButton>See More</PrimaryButton></Link></div> : ''
             }
-        </div>
+        </div>: null
+        }
+        </>
     );
 };
 

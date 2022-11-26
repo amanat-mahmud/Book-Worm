@@ -18,7 +18,7 @@ const SignUp = () => {
         getImageUrl(data.photo[0]).then(imgData => {
             signUpUser(data.email, data.password)
                 .then(res => {
-                    updateUser(imgData)
+                    updateUser(imgData,data.name)
                         .then(res => {
                             axios.post('http://localhost:5000/user', {
                                 name: data.name,

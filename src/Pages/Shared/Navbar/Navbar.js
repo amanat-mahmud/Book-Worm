@@ -45,7 +45,7 @@ const Navbar = () => {
                 </div>
                 {/* //className='btn w-1/4 btn-ghost h-1/3' */}
                 <img src={logo} alt="" className='w-20 lg:block hidden' />
-                <Link className="btn btn-ghost normal-case lg:text-xl">Book worm</Link>
+                <Link to="/" className="btn btn-ghost normal-case lg:text-xl">Book worm</Link>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal p-0">
@@ -74,7 +74,7 @@ const Navbar = () => {
                             </label>
                             <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
                                 <li>
-                                    <p>{user?.displayName}</p>
+                                    <p className='font-bold'>{user?.displayName}</p>
                                     <Link className="justify-between">
                                         Profile
                                         <span className="badge">Upcoming</span>
