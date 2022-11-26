@@ -19,7 +19,8 @@
         "available":"yes",
         "advertised":"yes",
         "advertisedOn":"",
-        "sold_to":""
+        "sold_to":"",
+        "condition":""
     },
     {
         "_id":"2",

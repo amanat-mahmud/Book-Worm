@@ -9,6 +9,7 @@ import Home from "../../Pages/Home/Home";
 import Login from "../../Pages/Login/Login";
 import Loader from "../../Pages/Shared/Loader/Loader";
 import SignUp from "../../Pages/SignUp/SignUp";
+import BuyerRoute from "../BuyerRoute/BuyerRoute";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 export const router = createBrowserRouter([
     {
@@ -49,7 +50,7 @@ export const router = createBrowserRouter([
             },
             {
                 path:"/dashboard/myorders",
-                element:<MyOrders></MyOrders>
+                element:<BuyerRoute><MyOrders></MyOrders></BuyerRoute> 
             },
             {
                 path:"/dashboard/mywishlist",

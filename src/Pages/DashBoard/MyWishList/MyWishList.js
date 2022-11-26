@@ -10,10 +10,6 @@ const MyWishList = () => {
                         <tr>
                             <th></th>
                             <th>Book Name</th>
-                            <th>Author</th>
-                            <th>Category</th>
-                            <th>Seller</th>
-                            <th>Used(years)</th>
                             <th>Available</th>
                             <th>Price</th>
                             <th>Action</th>
@@ -23,7 +19,19 @@ const MyWishList = () => {
                         {/* <!-- row 1 --> */}
                         <tr>
                             <th>1</th>
-                            <td>Cy Ganderton</td>
+                            <td>
+                                <div className="flex items-center space-x-3">
+                                    <div className="avatar">
+                                        <div className="mask mask-squircle w-12 h-12">
+                                            <img src="/tailwind-css-component-profile-2@56w.png" alt="Avatar Tailwind CSS Component" />
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div className="font-bold">Hart Hagerty</div>
+                                    </div>
+                                </div>
+                            </td>
+
                             <td>Quality Control</td>
                             <td>Blue</td>
                         </tr>

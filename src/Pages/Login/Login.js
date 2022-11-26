@@ -22,6 +22,7 @@ const Login = () => {
                     // is done in other components when needed
                     toast.success("Log in successful")
                     navigate(from, { replace: true })
+                    setLoading(false)
                 })
                 
             })
@@ -36,6 +37,7 @@ const Login = () => {
                 .then(()=>{
                     setUserRole("user")
                     toast.success("Log in successful")
+                    setLoading(false)
                     navigate(from, { replace: true })
                 }).catch()
             }).catch(()=>setLoading(false))
