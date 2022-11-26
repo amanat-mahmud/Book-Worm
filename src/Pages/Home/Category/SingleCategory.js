@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const SingleCategory = ({category}) => {
     return (
         <div>
-            <Link to={`/category/${category._id}`}>
+            <Link to={`/category/${category.category_name}`}>
             <div className="card shadow-xl ">
                 <div className="card-body" >
                 <button><h2 className=" text-center font-bold text-2xl
