@@ -122,6 +122,16 @@ const SignUp = () => {
                                 </div>
                                 <div className="form-control">
                                     <label className="label">
+                                        <span className="label-text">Mobile No.</span>
+                                    </label>
+                                    <input {...register("phone", {
+                                        required: "Phone is required"
+                                    })} type="number" placeholder="Your name" className="input input-bordered" />
+                                    {errors.phone && <p role="alert" className='text-red-600'>
+                                        {errors.phone?.message}</p>}
+                                </div>
+                                <div className="form-control">
+                                    <label className="label">
                                         <span className="label-text">Email</span>
                                     </label>
                                     <input {...register("email",
