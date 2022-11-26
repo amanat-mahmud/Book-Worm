@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 
 const AllSeller = () => {
-    const { data: sellers = [] } = useQuery({
+    const { data: sellers = [] , refetch } = useQuery({
         queryKey: ['sellers'],
         queryFn: async () => {
             const res = await fetch('http://localhost:5000/users?role=seller');
@@ -10,7 +10,21 @@ const AllSeller = () => {
             return data;
         }
     });
-    // console.log(sellers);
+    const handleVerify = (seller) =>{
+      // console.log(seller);
+      fetch(`http://localhost:5000/verify?email=${seller.email}`,{
+        method: 'PUT',
+        headers: {
+          authorization: `bearer ${localStorage.getItem('accessToken')}`
+          },
+    })
+      .then(res=>res.json())
+      .then(data=>{
+      if(data.acknowledged){
+        refetch()
+      }
+      })
+    }
     return (
         <div className="overflow-x-auto">
         <table className="table table-zebra w-full">
@@ -52,8 +66,9 @@ const AllSeller = () => {
               </td>
               <td>{seller.phone ?seller.phone: "N/A"}</td>
               <td>{seller.email}</td>
-              <td>{seller.verified==="no" ?<> <button className="btn btn-xs border-0 bg-[#92B4EC] mr-1">Verify</button><button className="btn btn-xs bg-red-500 border-0">Delete</button></> :
-              <button className="btn btn-xs bg-red-500 border-0">Delete</button>
+              <td>{seller.verified==="no" ?<> <button className="btn btn-xs border-0 bg-[#92B4EC] mr-1" onClick={()=>handleVerify(seller)}>Verify</button><button className="btn btn-xs bg-red-500 border-0">Delete</button></> :
+              <><button className="btn btn-xs mr-1" disabled>Verify</button>
+              <button className="btn btn-xs bg-red-500 border-0">Delete</button></>
               
               }</td>
             </tr>)
