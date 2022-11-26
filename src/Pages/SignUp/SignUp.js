@@ -18,14 +18,15 @@ const SignUp = () => {
         getImageUrl(data.photo[0]).then(imgData => {
             signUpUser(data.email, data.password)
                 .then(res => {
-                    updateUser(imgData,data.name)
+                    updateUser(imgData,data.name,data.phone)
                         .then(res => {
                             axios.post('http://localhost:5000/user', {
                                 name: data.name,
                                 imgUrl: imgData,
                                 email: data.email,
                                 role: data.role,
-                                verified: "no"
+                                verified: "no",
+                                phone:data.phone
                               }).then(response=>{
                                 if(response.data.acknowledged){
                                     generateToken(data.email)
@@ -34,7 +35,7 @@ const SignUp = () => {
                                 console.log(err)
                                 toast.error("Sign up error")
                             })
-                            
+                            setLoading(false);
                             setUserRole(data.role)
                             toast.success("Sign up Successful")
                             navigate('/')

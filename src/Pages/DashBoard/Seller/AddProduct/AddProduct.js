@@ -1,12 +1,22 @@
-import React, { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { getImageUrl } from '../../../../api/getImageUrl';
+import { AuthContext } from '../../../../context/AuthProvider';
 ;
 
 const AddProduct = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
-    const [bookImage, setBookImage] = useState()
+    const {user} = useContext(AuthContext)
+    const { data: seller = [] } = useQuery({
+        queryKey: ['seller'],
+        queryFn: async () => {
+            const res = await fetch(`http://localhost:5000/user?email=${user.email}`);
+            const data = await res.json();
+            return data
+        }
+    }); 
     const onSubmit = (data) => {
         const bookName = data.name;
         const author = data.author;
@@ -14,19 +24,25 @@ const AddProduct = () => {
         const category = data.category;
         const condition = data.condition;
         const description = data.description;
-        const sellerPhone = data.mobile
+        const sellerEmail = seller.email;
+        const sellerPhone = data.mobile;
         const sellerLocation = data.location
         const yearOfUse = data.used
         const originalPrice = data.buyPrice
         getImageUrl(data.photo[0]).then(imgData => {
-            console.log(imgData);
-            setBookImage(imgData);
-            // when storing try to store in here as in here
-            // img url is fetched and then setted so no chnc of getting undefined
-            console.log("Inside Image url", bookName, author, reSalePrice, bookImage, category, condition, description, sellerPhone, sellerLocation, yearOfUse, originalPrice);
+            const book= {
+                bookName,author,reSalePrice,category,condition,description,sellerLocation,yearOfUse,originalPrice,
+                bookImage:imgData,sellerPhone,
+                sellerEmail,available:"yes",advertised:false
+            }
+            fetch('http://localhost:5000/book',{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(book)
+        }).then().catch()
         })
-
-        console.log(bookName, author, reSalePrice, bookImage, category, condition, description, sellerPhone, sellerLocation, yearOfUse, originalPrice);
         toast.success("Book added")
     }
     return (
@@ -50,7 +66,7 @@ const AddProduct = () => {
                     <label className="label">
                         <span className="label-text">Price</span>
                     </label>
-                    <input {...register("price", { required: "Price is required" })} type="text" className="input input-bordered w-full" />
+                    <input {...register("price", { required: "Price is required" })} type="number" className="input input-bordered w-full" />
                     {errors.price && <p role="alert" className='text-red-600'>{errors.price?.message}</p>}
                 </div>
                 <div className="form-control w-4/5 md:w-1/2  md:mx-auto mx-10">
@@ -93,9 +109,8 @@ const AddProduct = () => {
                     <label className="label">
                         <span className="label-text">Mobile no.</span>
                     </label>
-                    <input {...register("mobile", { required: "Mobile no. is required" })} type="number" className="input input-bordered w-full" />
-                    {errors.mobile && <p role="alert" className='text-red-600'>
-                        {errors.mobile?.message}</p>}
+                    <input defaultValue={seller?.phone ?? ''} 
+                    {...register("mobile")} type="number" className="input input-bordered w-full" required />
                 </div>
                 <div className="form-control w-4/5 md:w-1/2  md:mx-auto mx-10">
                     <label className="label">
@@ -109,7 +124,7 @@ const AddProduct = () => {
                     <label className="label">
                         <span className="label-text">Buying Price</span>
                     </label>
-                    <input {...register("buyPrice", { required: "Buying Price is required" })} type="text" className="input input-bordered w-full" />
+                    <input {...register("buyPrice", { required: "Buying Price is required" })} type="number" className="input input-bordered w-full" />
                     {errors.buyPrice && <p role="alert" className='text-red-600'>
                         {errors.buyPrice?.message}</p>}
                 </div>

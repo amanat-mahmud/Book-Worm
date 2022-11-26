@@ -14,11 +14,13 @@ const AuthProvider = ({ children }) => {
     const signUpUser = (email, password) => {
         return createUserWithEmailAndPassword(auth, email, password);
     }
-    const updateUser = (photo,name) => {
+    const updateUser = (photo,name,phone) => {
         setLoading(true);
+        // console.log(photo,name,phone);
         return updateProfile(auth.currentUser, {
             photoURL: photo,
-            displayName:name
+            phoneNumber:phone,
+            displayName:name,
         })
     }
     const singIn = (email, password) => {
