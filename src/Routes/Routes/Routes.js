@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import DashBoardLayout from "../../layout/DashBoardLayout";
 import Main from "../../layout/Main";
+import AddProduct from "../../Pages/DashBoard/AddProduct/AddProduct";
 import MyOrders from "../../Pages/DashBoard/MyOrders/MyOrders";
 import MyWishList from "../../Pages/DashBoard/MyWishList/MyWishList";
 import Welcome from "../../Pages/DashBoard/Welcome/Welcome";
@@ -11,6 +12,7 @@ import Loader from "../../Pages/Shared/Loader/Loader";
 import SignUp from "../../Pages/SignUp/SignUp";
 import BuyerRoute from "../BuyerRoute/BuyerRoute";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
+import SellerRoute from "../SellerRoute/SellerRoute";
 export const router = createBrowserRouter([
     {
         path:'/',
@@ -54,19 +56,19 @@ export const router = createBrowserRouter([
             },
             {
                 path:"/dashboard/mywishlist",
-                element:<MyWishList></MyWishList>
+                element:<BuyerRoute><MyWishList></MyWishList></BuyerRoute>
             },
             {
                 path:"/dashboard/addproduct",
-                element:<MyWishList></MyWishList>
+                element:<SellerRoute><AddProduct></AddProduct></SellerRoute> 
             },
             {
                 path:"/dashboard/myproducts",
-                element:<MyWishList></MyWishList>
+                element: <SellerRoute></SellerRoute>
             },
             {
-                path:"dashboard/mybuyers",
-                element:<MyWishList></MyWishList>
+                path:"/dashboard/mybuyers",
+                element: <SellerRoute></SellerRoute>
             },
         ]
     }

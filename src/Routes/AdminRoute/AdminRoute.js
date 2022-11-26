@@ -1,19 +1,18 @@
 import React, { useContext } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
-import { getRole } from '../../api/getRole';
+import useGetRoleV2 from '../../api/useGetRoleV2';
 import { AuthContext } from '../../context/AuthProvider';
 import Loader from '../../Pages/Shared/Loader/Loader';
 
 const AdminRoute = ({children}) => {
-    const {user, loading, userRole, setUserRole} = useContext(AuthContext);
-    getRole(user.email).then(res=>setUserRole(res));
+    const {user, loading} = useContext(AuthContext);
+    const [role, roleLoading] = useGetRoleV2(user?.email);
     const location = useLocation();
-
-    if(loading){
+    if(loading || roleLoading){
         return <Loader></Loader>
     }
 
-    if (user && userRole==="admin"){
+    if (user && role==="admin"){
         return children;
     }
 
