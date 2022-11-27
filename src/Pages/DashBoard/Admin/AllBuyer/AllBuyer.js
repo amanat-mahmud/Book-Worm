@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
-
+import toast from 'react-hot-toast';
 const AllBuyer = () => {
     const { data: buyers = [] , refetch } = useQuery({
         queryKey: ['buyers'],
@@ -22,6 +22,7 @@ const AllBuyer = () => {
       .then(data=>{
         // console.log(data)
       if(data.acknowledged){
+        toast.success("User verified")
         refetch()
       }
       })
