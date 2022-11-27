@@ -1,7 +1,9 @@
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { AuthContext } from '../../../../context/AuthProvider';
 
 const CheckoutForm = ({orderedProduct }) => {
+    const {user} = useContext(AuthContext)
     const [cardError, setCardError] = useState('');
     const [success, setSuccess] = useState('');
     const [processing, setProcessing] = useState(false);
@@ -58,10 +60,10 @@ const CheckoutForm = ({orderedProduct }) => {
                 payment_method: {
                     card: card,
                     billing_details: {
-                        product_id,
-                        product_name,
-                        sellerEmail,
-                        buyerEmail
+                        name:user?.displayName,
+                        email:buyerEmail
+
+                       
                     },
                 },
             },
@@ -80,13 +82,13 @@ const CheckoutForm = ({orderedProduct }) => {
                 product_id,product_name,sellerEmail,buyerEmail
                
             }
-            fetch('', {
-                method: 'POST',
+            fetch('http://localhost:5000/payments', {
+                method: 'PUT',
                 headers: {
                     'content-type': 'application/json',
                     authorization: `bearer ${localStorage.getItem('accessToken')}`
                 },
-                body: JSON.stringify()
+                body: JSON.stringify(payment)
             })
                 .then(res => res.json())
                 .then(data => {
@@ -131,7 +133,7 @@ const CheckoutForm = ({orderedProduct }) => {
             <p className="text-red-500">{cardError}</p>
             {
                 success && <div>
-                    <p className='text-green-500'>{success}</p>
+                    <p className='text-[#92B4EC] font-bold'>{success}</p>
                     <p>Your transactionId: <span className='font-bold'>{transactionId}</span></p>
                 </div>
             }
