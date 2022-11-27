@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import DashBoardLayout from "../../layout/DashBoardLayout";
 import Main from "../../layout/Main";
+import Category from "../../Pages/Category/Category";
 import AllBuyer from "../../Pages/DashBoard/Admin/AllBuyer/AllBuyer";
 import AllSeller from "../../Pages/DashBoard/Admin/AllSeller/AllSeller";
 import Reported from "../../Pages/DashBoard/Admin/Reported/Reported";
@@ -30,6 +31,10 @@ export const router = createBrowserRouter([
             {
                 path: '/advertised',
                 element: <>Advertised</>
+            },
+            {
+                path: '/categories',
+                element: <Category></Category>
             },
             {
                 path: '/category/:name',

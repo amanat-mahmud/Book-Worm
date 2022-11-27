@@ -1,5 +1,5 @@
 import React from 'react';
-import PrimaryButton from '../../Components/PrimaryButton/PrimaryButton';
+import PrimaryButton from '../../../Components/PrimaryButton/PrimaryButton';
 import { FaCheckCircle, FaExclamationCircle } from 'react-icons/fa';
 const AdvertisedSingleItem = ({ book }) => {
     const { bookName, author, bookImage, location, description,
