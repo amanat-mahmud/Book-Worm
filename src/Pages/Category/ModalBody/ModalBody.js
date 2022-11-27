@@ -17,8 +17,6 @@ const ModalBody = ({sendBook,setSendBook}) => {
         user_phone : event.target.phone.value,
         user_location : event.target.location.value,
     }
-    console.log(sendBook);
-        console.log(order);
         fetch('http://localhost:5000/order',{
             method: 'POST',
             headers: {
