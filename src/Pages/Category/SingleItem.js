@@ -1,7 +1,6 @@
-import { useQuery } from '@tanstack/react-query';
 import React, { useEffect, useState } from 'react';
 import { FaCheckCircle, FaExclamationCircle } from 'react-icons/fa';
-import PrimaryButton from '../../Components/PrimaryButton/PrimaryButton';
+import ModalBody from './ModalBody/ModalBody';
 const SingleItem = ({ book }) => {
     const { bookName, bookImage, description,
         category, reSalePrice, sellerEmail,sellerName,verified } = book;
@@ -11,7 +10,7 @@ const SingleItem = ({ book }) => {
         .then(res=>res.json())
         .then(data=>setSeller(data))
     },[sellerEmail])
-    console.log(seller);
+    const [sendBook,setSendBook] = useState();
     return (
         <div>
             {<div className=" card-compact  shadow-xl">
@@ -37,11 +36,12 @@ const SingleItem = ({ book }) => {
                     <p>{description.slice(0, 120) + '...'}</p>
                     <div className="card-actions justify-between items-center">
                         <p className='text-xl font-bold'>Price: ${reSalePrice}</p>
-                        <PrimaryButton>Book now</PrimaryButton>
+                        <label htmlFor="my-modal-3" className="btn bg-[#92B4EC] text-white border-0 hover:bg-black" onClick={()=>setSendBook(book)}>Book Now</label>
                     </div>
                 </div>
             </div>
             }
+            {sendBook && <ModalBody sendBook={sendBook} setSendBook={setSendBook}></ModalBody>}
         </div>
     );
 };

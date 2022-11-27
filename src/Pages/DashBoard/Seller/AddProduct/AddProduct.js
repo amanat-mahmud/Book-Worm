@@ -17,7 +17,8 @@ const AddProduct = () => {
             return data
         }
     }); 
-    const onSubmit = (data) => {
+    const onSubmit = (data,event) => {
+        const form = event.target;
         const bookName = data.name;
         const author = data.author;
         const reSalePrice = data.price;
@@ -25,14 +26,13 @@ const AddProduct = () => {
         const condition = data.condition;
         const description = data.description;
         const sellerEmail = seller.email;
-        const sellerPhone = data.mobile;
         const sellerLocation = data.location
         const yearOfUse = data.used
         const originalPrice = data.buyPrice
         getImageUrl(data.photo[0]).then(imgData => {
             const book= {
                 bookName,author,reSalePrice,category,condition,description,sellerLocation,yearOfUse,originalPrice,
-                bookImage:imgData,sellerPhone,
+                bookImage:imgData,sellerPhone:seller?.phone,
                 sellerEmail,available:"yes",advertised:false
             }
             fetch('http://localhost:5000/book',{
@@ -43,6 +43,7 @@ const AddProduct = () => {
               body: JSON.stringify(book)
         }).then().catch()
         })
+        form.reset()
         toast.success("Book added")
     }
     return (
@@ -110,7 +111,7 @@ const AddProduct = () => {
                         <span className="label-text">Mobile no.</span>
                     </label>
                     <input defaultValue={seller?.phone ?? ''} 
-                    {...register("mobile")} type="number" className="input input-bordered w-full" required />
+                    {...register("mobile")} type="number" className="input input-bordered w-full" required disabled />
                 </div>
                 <div className="form-control w-4/5 md:w-1/2  md:mx-auto mx-10">
                     <label className="label">

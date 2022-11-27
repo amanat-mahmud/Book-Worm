@@ -3,7 +3,7 @@ import React from 'react';
 import SingleCategory from '../../Home/Category/SingleCategory';
 
 const CategoryOptions = ({selectedCategory}) => {
-    const { data: allBooks = [] } = useQuery({
+    const { data: allBooks = []} = useQuery({
         queryKey: ['allBooks'],
         queryFn: async () => {
             const res = await fetch('http://localhost:5000/books');

@@ -7,10 +7,10 @@ const DashNav = () => {
     const { user, logOut } = useContext(AuthContext);
     const menuItem = 
     <>
-        <li><Link to="/">Home</Link></li>
-        <li><Link  to='/categories'>Categories</Link></li>
-        <li><Link to="/advertised" >Advertised</Link></li>
-        <li><Link  to='/blog'>Blog</Link></li>
+        <li><Link to="/" className='rounded-xl hover:bg-black hover:text-white mr-2'>Home</Link></li>
+        <li><Link  to='/categories' className='rounded-xl hover:bg-black hover:text-white mr-2'>Categories</Link></li>
+        <li><Link to="/advertised" className='rounded-xl hover:bg-black hover:text-white mr-2'>Advertised</Link></li>
+        <li><Link  to='/blog' className='rounded-xl hover:bg-black hover:text-white '>Blog</Link></li>
     </>
 
     const handleSingOut = () => {
