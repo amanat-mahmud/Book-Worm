@@ -6,15 +6,6 @@ const SingleItem = ({ book }) => {
     const { bookName, bookImage, description,
         category, reSalePrice, sellerEmail,sellerName,verified } = book;
     const [seller,setSeller] = useState();
-    //     console.log(sellerEmail);
-    // const { data: user = [] } = useQuery({
-    //     queryKey: ['user'],
-    //     queryFn: async () => {
-    //         const res = await fetch(`http://localhost:5000/user?email=${sellerEmail}`);
-    //         const data = await res.json();
-    //         return data
-    //     }
-    // });
     useEffect(()=>{
         fetch(`http://localhost:5000/user?email=${sellerEmail}`)
         .then(res=>res.json())
