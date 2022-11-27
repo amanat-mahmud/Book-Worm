@@ -1,6 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import toast from 'react-hot-toast';
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+const MySwal = withReactContent(Swal)
 const AllBuyer = () => {
     const { data: buyers = [] , refetch } = useQuery({
         queryKey: ['buyers'],
@@ -26,6 +29,39 @@ const AllBuyer = () => {
         refetch()
       }
       })
+    }
+    const handleDelete = (buyer)=>{
+      MySwal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            fetch(`http://localhost:5000/user?email=${buyer.email}`, {
+                method: 'DELETE'
+            })
+                .then(res => res.json())
+                .then(data => {
+                    
+                    if (data.deletedCount > 0) {
+                        Swal.fire(
+                            'Deleted!',
+                            'User has been deleted.',
+                            'success'
+                        )
+                        refetch();
+                    }
+                    
+                })
+        }
+        else {
+            Swal.fire('Didn\'t delete user', '', 'success')
+        }
+    })
     }
     return (
         <div className="overflow-x-auto">
@@ -59,8 +95,9 @@ const AllBuyer = () => {
               </td>
               <td>{buyer.phone ?buyer.phone: "N/A"}</td>
               <td>{buyer.email}</td>
-              <td>{buyer.verified==="no" ?<> <button className="btn btn-xs border-0 bg-[#92B4EC] mr-1" onClick={()=>handleVerify(buyer)}>Verify</button><button className="btn btn-xs bg-red-500 border-0">Delete</button></> :<><button className="btn btn-xs mr-1" disabled>Verify</button>
-              <button className="btn btn-xs bg-red-500 border-0">Delete</button></>
+              <td>{buyer.verified==="no" ?<> <button className="btn btn-xs border-0 bg-[#92B4EC] mr-1" onClick={()=>handleVerify(buyer)}>Verify</button><button className="btn btn-xs bg-red-500 border-0"
+              onClick={() => handleDelete(buyer)}>Delete</button></> :<><button className="btn btn-xs mr-1" disabled>Verify</button>
+              <button className="btn btn-xs bg-red-500 border-0" onClick={() => handleDelete(buyer)}>Delete</button></>
               
               
               }</td>

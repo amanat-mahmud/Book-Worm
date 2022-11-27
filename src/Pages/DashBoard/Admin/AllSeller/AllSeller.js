@@ -58,7 +58,6 @@ const AllSeller = () => {
               })
       }
       else {
-          // Swal.fire('Changes are not saved', '', 'info')
           Swal.fire('Didn\'t delete user', '', 'success')
       }
   })
@@ -78,15 +77,6 @@ const AllSeller = () => {
           </tr>
         </thead>
         <tbody>
-          {/* <!-- row 1 --> */}
-          {/* <tr>
-              <th>1</th>
-              <td>
-                Name
-              </td>
-              <td>Quality Control</td>
-              <td>Blue</td>
-            </tr> */}
           {
             sellers.map((seller, idx) => <tr
               key={seller._id}>
