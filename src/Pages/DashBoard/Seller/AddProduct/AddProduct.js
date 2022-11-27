@@ -2,11 +2,13 @@ import { useQuery } from '@tanstack/react-query';
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 import { getImageUrl } from '../../../../api/getImageUrl';
 import { AuthContext } from '../../../../context/AuthProvider';
 ;
 
 const AddProduct = () => {
+    const navigate = useNavigate()
     const { register, formState: { errors }, handleSubmit } = useForm();
     const {user} = useContext(AuthContext)
     const { data: seller = [] } = useQuery({
@@ -33,7 +35,8 @@ const AddProduct = () => {
             const book= {
                 bookName,author,reSalePrice,category,condition,description,sellerLocation,yearOfUse,originalPrice,
                 bookImage:imgData,sellerPhone:seller?.phone,
-                sellerEmail,available:"yes",advertised:false
+                sellerEmail,available:"yes",advertised:"no",
+                postedOn: new Date().toLocaleString()
             }
             fetch('http://localhost:5000/book',{
             method: 'POST',
@@ -45,6 +48,7 @@ const AddProduct = () => {
         })
         form.reset()
         toast.success("Book added")
+        navigate('/dashboard/myproducts')
     }
     return (
         <div >
