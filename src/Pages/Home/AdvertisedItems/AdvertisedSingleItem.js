@@ -2,10 +2,10 @@ import React from 'react';
 import PrimaryButton from '../../../Components/PrimaryButton/PrimaryButton';
 import { FaCheckCircle, FaExclamationCircle } from 'react-icons/fa';
 const AdvertisedSingleItem = ({ book }) => {
-    const { bookName, author, bookImage, location, description,
-        category, reSalePrice, originalPrice, yearOfUse, posted,
-        sellerName, sellerEmail, verified, reported, reportedBy,
-        available, advertised } = book
+    const { bookName,  bookImage,  description,
+        category, reSalePrice,  
+        sellerName,  verified, 
+        available } = book
     return (
         <div>
             {available === "yes" ? <div className=" card-compact  shadow-xl">

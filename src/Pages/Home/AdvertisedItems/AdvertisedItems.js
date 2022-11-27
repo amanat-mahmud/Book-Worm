@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import PrimaryButton from '../../../Components/PrimaryButton/PrimaryButton';
+import SingleItem from '../../Category/SingleItem';
 import AdvertisedSingleItem from './AdvertisedSingleItem';
 const AdvertisedItems = () => {
     const [availableCount, setAvailableCount] = useState(0);
@@ -26,12 +27,12 @@ const AdvertisedItems = () => {
                         {
                             availableAdvertisedBooks.reverse().slice(0,3).map(book => book.available === "yes" &&
                                 book.advertised === "yes" ?
-                                <AdvertisedSingleItem
+                                <SingleItem
                                     key={book._id}
                                     book={book}
                                     setAvailableCount={setAvailableCount}
                                     availableCount={availableCount}
-                                ></AdvertisedSingleItem> : null)
+                                ></SingleItem> : null)
                         }
                     </div>
                     {
