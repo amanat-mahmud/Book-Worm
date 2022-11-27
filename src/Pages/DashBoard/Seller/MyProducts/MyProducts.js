@@ -4,14 +4,29 @@ import { AuthContext } from '../../../../context/AuthProvider';
 
 const MyProducts = () => {
   const {user} = useContext(AuthContext);
-  const { data: products = [] } = useQuery({
+  const { data: products = [], refetch} = useQuery({
     queryKey: ['products'],
     queryFn: async () => {
         const res = await fetch(`http://localhost:5000/myproducts?email=${user.email}`);
         const data = await res.json();
+        
         return data
     }
   });
+  const handleAdvertise = (id)=>{
+    // console.log(id);
+    fetch(`http://localhost:5000/books/${id}`,{
+      method: 'PUT',
+      headers: {
+        authorization: `bearer ${localStorage.getItem('accessToken')}`
+        },
+  })
+    .then(res=>res.json())
+    .then(data=>{
+      if(data.acknowledged){
+      refetch()}
+    })
+  }
   return (
     <div>
       <div className="overflow-x-auto">
@@ -37,8 +52,8 @@ const MyProducts = () => {
                 <td>{prod.author}</td>
                 <td>{prod.category}</td>
                 <td>{prod.reSalePrice}</td>
-                <td>{prod.available ? 'Unsold':'Sold'}</td>
-                <td>{prod.advertised ? <button className="btn btn-xs  mr-1" disabled>Advertised</button>:<button className="btn btn-xs border-0 bg-[#92B4EC] mr-1">Advertise</button>}</td>
+                <td>{prod.available==="yes" ? 'Unsold':'Sold'}</td>
+                <td>{prod.advertised==="yes" ? <button className="btn btn-xs  mr-1" disabled>Advertised</button>:<button className="btn btn-xs border-0 bg-[#92B4EC] mr-1" onClick={()=>handleAdvertise(prod._id)}>Advertise</button>}</td>
               </tr>)
             }
           </tbody>

@@ -11,7 +11,7 @@ const AddProduct = () => {
     const navigate = useNavigate()
     const { register, formState: { errors }, handleSubmit } = useForm();
     const {user} = useContext(AuthContext)
-    const { data: seller = [] } = useQuery({
+    const { data: seller = [],refetch } = useQuery({
         queryKey: ['seller'],
         queryFn: async () => {
             const res = await fetch(`http://localhost:5000/user?email=${user.email}`);
@@ -47,6 +47,7 @@ const AddProduct = () => {
         }).then().catch()
         })
         form.reset()
+        refetch()
         toast.success("Book added")
         navigate('/dashboard/myproducts')
     }

@@ -11,6 +11,7 @@ const SingleItem = ({ book }) => {
         .then(data=>setSeller(data))
     },[sellerEmail])
     const [sendBook,setSendBook] = useState();
+    console.log(seller);
     return (
         <div>
             {<div className=" card-compact  shadow-xl">
