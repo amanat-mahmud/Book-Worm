@@ -8,22 +8,20 @@ const SingleItem = ({ book }) => {
         category, reSalePrice, sellerEmail, sellerName, verified } = book;
     const [seller, setSeller] = useState();
     const { user } = useContext(AuthContext);
-    const userEmail = user?.email
     useEffect(() => {
         fetch(`https://book-worm-server-omega.vercel.app/user?email=${sellerEmail}`)
             .then(res => res.json())
             .then(data => setSeller(data))
     }, [sellerEmail])
     const [sendBook, setSendBook] = useState();
-    const handleReport = (book, userEmail) => {
-        fetch(`https://book-worm-server-omega.vercel.app/report`, {
+    const handleReport = (id) => {
+        fetch(`https://book-worm-server-amanatumahmud.vercel.app/books?id=${id}&email=${user.email}`, {
 
-            method: 'POST',
+            method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
             },
-            body: JSON.stringify({ book, userEmail })
         })
             .then(res => res.json())
             .then(data => {
@@ -56,7 +54,7 @@ const SingleItem = ({ book }) => {
 
                     <p>{description.slice(0, 120) + '...'}</p>
                     <div className="card-actions justify-between items-center">
-                        <button onClick={() => handleReport(book, userEmail)} className='tooltip tooltip-bottom text-red-500' data-tip="Report"><FaFlag></FaFlag></button>
+                        <button onClick={() => handleReport(book._id)} className='tooltip tooltip-bottom text-red-500' data-tip="Report"><FaFlag></FaFlag></button>
                         <p className='text-xl font-bold'>Price: ${reSalePrice}</p>
                         <label htmlFor="my-modal-3" className="btn bg-[#92B4EC] text-white border-0 hover:bg-black" onClick={() => setSendBook(book)}>Book Now</label>
                     </div>

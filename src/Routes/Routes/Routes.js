@@ -47,7 +47,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/category/:name',
-                element: <BuyerRoute><OneCategoryPage></OneCategoryPage></BuyerRoute>,
+                element: <SpecialRouteforCategories><OneCategoryPage></OneCategoryPage></SpecialRouteforCategories>,
                 loader: ({ params }) => fetch(`https://book-worm-server-omega.vercel.app/category/${params.name}`)
             },
             {

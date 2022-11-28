@@ -6,10 +6,10 @@ import withReactContent from 'sweetalert2-react-content'
 const MySwal = withReactContent(Swal)
 const Reported = () => {
   const { user } = useContext(AuthContext);
-  const { data: reportedBooks = [], refetch } = useQuery({
-    queryKey: ['reportedBooks'],
+  const { data: Books = [], refetch } = useQuery({
+    queryKey: ['Books'],
     queryFn: async () => {
-      const res = await fetch('https://book-worm-server-omega.vercel.app/report', {
+      const res = await fetch('https://book-worm-server-omega.vercel.app/books', {
         headers: {
           authorization: `bearer ${localStorage.getItem('accessToken')}`
         },
@@ -18,6 +18,12 @@ const Reported = () => {
       return data;
     }
   });
+  let reportedBooks = []
+  Books.forEach(book => {
+    if (book.reportedBy) {
+      reportedBooks.push(book)
+    }
+  })
   console.log(reportedBooks);
   const handleDelete = (id) => {
     MySwal.fire({
@@ -30,7 +36,7 @@ const Reported = () => {
       confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`https://book-worm-server-omega.vercel.app/report?email=${user?.email}&id=${id}`, {
+        fetch(`https://book-worm-server-omega.vercel.app/book?id=${id}`, {
           method: 'DELETE',
           headers: {
             authorization: `bearer ${localStorage.getItem('accessToken')}`
