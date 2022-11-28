@@ -6,18 +6,18 @@ import withReactContent from 'sweetalert2-react-content'
 import { AuthContext } from '../../../../context/AuthProvider';
 const MySwal = withReactContent(Swal)
 const AllSeller = () => {
-  const {user} = useContext(AuthContext)
+  const { user } = useContext(AuthContext)
   const { data: sellers = [], refetch } = useQuery({
     queryKey: ['sellers'],
     queryFn: async () => {
-      const res = await fetch('http://localhost:5000/users?role=seller');
+      const res = await fetch('https://book-worm-server-omega.vercel.app/users?role=seller');
       const data = await res.json();
       return data;
     }
   });
   const handleVerify = (seller) => {
     // console.log(seller);
-    fetch(`http://localhost:5000/verify?email=${user?.email}&verify=${seller?.email}`, {
+    fetch(`https://book-worm-server-omega.vercel.app/verify?email=${user?.email}&verify=${seller?.email}`, {
       method: 'PUT',
       headers: {
         authorization: `bearer ${localStorage.getItem('accessToken')}`
@@ -40,33 +40,33 @@ const AllSeller = () => {
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Yes, delete it!'
-  }).then((result) => {
+    }).then((result) => {
       if (result.isConfirmed) {
-          fetch(`http://localhost:5000/user?email=${user?.email}&delete=${seller?.email}`, {
-              method: 'DELETE',
-              headers: {
-                authorization: `bearer ${localStorage.getItem('accessToken')}`
-              },
+        fetch(`https://book-worm-server-omega.vercel.app/user?email=${user?.email}&delete=${seller?.email}`, {
+          method: 'DELETE',
+          headers: {
+            authorization: `bearer ${localStorage.getItem('accessToken')}`
+          },
+        })
+          .then(res => res.json())
+          .then(data => {
+
+            if (data.deletedCount > 0) {
+              Swal.fire(
+                'Deleted!',
+                'User has been deleted.',
+                'success'
+              )
+              refetch();
+            }
+
           })
-              .then(res => res.json())
-              .then(data => {
-                  
-                  if (data.deletedCount > 0) {
-                      Swal.fire(
-                          'Deleted!',
-                          'User has been deleted.',
-                          'success'
-                      )
-                      refetch();
-                  }
-                  
-              })
       }
       else {
-          Swal.fire('Didn\'t delete user', '', 'success')
+        Swal.fire('Didn\'t delete user', '', 'success')
       }
-  })
-    
+    })
+
   }
   return (
     <div className="overflow-x-auto">

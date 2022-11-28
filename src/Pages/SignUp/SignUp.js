@@ -10,7 +10,7 @@ import LoadingButton from '../Shared/LoadingButton/LoadingButton';
 
 const SignUp = () => {
     const [singUpError, setSingUpError] = useState('');
-    const { signUpUser, updateUser, googleLogin,setUserRole,loading,setLoading } = useContext(AuthContext);
+    const { signUpUser, updateUser, googleLogin, setUserRole, loading, setLoading } = useContext(AuthContext);
     const { register, formState: { errors }, handleSubmit } = useForm();
     const navigate = useNavigate();
     const onSubmit = (data) => {
@@ -18,23 +18,24 @@ const SignUp = () => {
         getImageUrl(data.photo[0]).then(imgData => {
             signUpUser(data.email, data.password)
                 .then(res => {
-                    updateUser(imgData,data.name,data.phone)
+                    updateUser(imgData, data.name, data.phone)
                         .then(res => {
-                            axios.post('http://localhost:5000/user', {
+                            axios.post('https://book-worm-server-omega.vercel.app/user', {
                                 name: data.name,
                                 imgUrl: imgData,
                                 email: data.email,
                                 role: data.role,
                                 verified: "no",
-                                phone:data.phone
-                              }).then(response=>{
-                                if(response.data.acknowledged){
+                                phone: data.phone
+                            }).then(response => {
+                                if (response.data.acknowledged) {
                                     generateToken(data.email)
-                                }})
-                              .catch(err=>{
-                                 console.log(err)
-                                toast.error("Sign up error")
+                                }
                             })
+                                .catch(err => {
+                                    console.log(err)
+                                    toast.error("Sign up error")
+                                })
                             setLoading(false);
                             setUserRole(data.role)
                             toast.success("Sign up Successful")
@@ -42,15 +43,15 @@ const SignUp = () => {
                         })
                         .catch(err => console.log(err.message))
                 })
-                .catch(err => 
-                    {setSingUpError(err.message)
-                    setLoading(false)    
+                .catch(err => {
+                    setSingUpError(err.message)
+                    setLoading(false)
                 })
         })
     }
     const handleGoogle = () => {
         googleLogin()
-        .then(res => {
+            .then(res => {
                 const user = {
                     name: res.user.displayName,
                     imgUrl: res.user.photoURL,
@@ -58,26 +59,26 @@ const SignUp = () => {
                     role: "user",
                     verified: "no"
                 }
-                fetch('http://localhost:5000/user', {
+                fetch('https://book-worm-server-omega.vercel.app/user', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify(user)
                 })
-                .then(response => {
-                    console.log(response);
-                    //toast doesn't work here
-                    }).catch(err=>console.log("Error in fetch",err.message))
+                    .then(response => {
+                        console.log(response);
+                        //toast doesn't work here
+                    }).catch(err => console.log("Error in fetch", err.message))
                 setUserRole("user");
                 generateToken(res.user.email)
                 toast.success("Sign up Successful")
                 navigate('/')
             })
-        .catch(err=>{
-            toast.error("Sign up error")
-            setLoading(false) 
-        })
+            .catch(err => {
+                toast.error("Sign up error")
+                setLoading(false)
+            })
     }
 
     return (
@@ -155,7 +156,7 @@ const SignUp = () => {
                                 </div>
                                 <div className="form-control mt-6">
                                     {
-                                        loading ? <LoadingButton></LoadingButton> :<button type='submit' className="btn bg-[#92B4EC] border-[#92B4EC]">Sign up</button>
+                                        loading ? <LoadingButton></LoadingButton> : <button type='submit' className="btn bg-[#92B4EC] border-[#92B4EC]">Sign up</button>
                                     }
                                 </div>
                                 {singUpError && <p className='text-red-500'>{singUpError}</p>}

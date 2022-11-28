@@ -8,10 +8,10 @@ const MyOrders = () => {
   const { data: myOrders = [] } = useQuery({
     queryKey: ['myOrders'],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:5000/order?email=${user.email}`,{
+      const res = await fetch(`https://book-worm-server-omega.vercel.app/order?email=${user.email}`, {
         headers: {
           authorization: `bearer ${localStorage.getItem('accessToken')}`
-          },
+        },
       });
       const data = await res.json();
       return data
@@ -20,7 +20,7 @@ const MyOrders = () => {
   const { data: paidOrders = [] } = useQuery({
     queryKey: ['paidOrders'],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:5000/book?email=${user.email}`);
+      const res = await fetch(`https://book-worm-server-omega.vercel.app/book?email=${user.email}`);
       const data = await res.json();
       return data
     }
@@ -38,7 +38,7 @@ const MyOrders = () => {
             </tr>
           </thead>
           <tbody>
-            
+
             {
               myOrders.map((order, idx) => <tr key={idx}>
                 <th>{idx + 1}</th>
@@ -74,7 +74,7 @@ const MyOrders = () => {
                   </div>
                 </td>
                 <td>{myOrder.reSalePrice}</td>
-                <td><button className='btn'disabled>Paid</button></td>
+                <td><button className='btn' disabled>Paid</button></td>
               </tr>)
             }
           </tbody>

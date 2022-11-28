@@ -5,7 +5,7 @@ const useGetRoleV2 = email => {
     const [roleLoading, setRoleLoading] = useState(true);
     useEffect(() => {
         if (email) {
-            fetch(`http://localhost:5000/user?email=${email}`)
+            fetch(`https://book-worm-server-omega.vercel.app/user?email=${email}`)
                 .then(res => res.json())
                 .then(data => {
                     setRole(data.role);

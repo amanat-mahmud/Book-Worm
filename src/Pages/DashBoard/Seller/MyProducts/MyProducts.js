@@ -3,34 +3,35 @@ import React, { useContext } from 'react';
 import { AuthContext } from '../../../../context/AuthProvider';
 
 const MyProducts = () => {
-  const {user} = useContext(AuthContext);
-  const { data: products = [], refetch} = useQuery({
+  const { user } = useContext(AuthContext);
+  const { data: products = [], refetch } = useQuery({
     queryKey: ['products'],
     queryFn: async () => {
-        const res = await fetch(`http://localhost:5000/myproducts?email=${user.email}`,{
-          headers: {
-            authorization: `bearer ${localStorage.getItem('accessToken')}`
-            },
-        });
-        const data = await res.json();
-        
-        return data
+      const res = await fetch(`https://book-worm-server-omega.vercel.app/myproducts?email=${user.email}`, {
+        headers: {
+          authorization: `bearer ${localStorage.getItem('accessToken')}`
+        },
+      });
+      const data = await res.json();
+
+      return data
     }
   });
   console.log(products);
-  const handleAdvertise = (id)=>{
+  const handleAdvertise = (id) => {
     // console.log(id);
-    fetch(`http://localhost:5000/books/${id}`,{
+    fetch(`https://book-worm-server-omega.vercel.app/books/${id}`, {
       method: 'PUT',
       headers: {
         authorization: `bearer ${localStorage.getItem('accessToken')}`
-        },
-  })
-    .then(res=>res.json())
-    .then(data=>{
-      if(data.acknowledged){
-      refetch()}
+      },
     })
+      .then(res => res.json())
+      .then(data => {
+        if (data.acknowledged) {
+          refetch()
+        }
+      })
   }
   return (
     <div>
@@ -50,15 +51,15 @@ const MyProducts = () => {
           </thead>
           <tbody>
             {
-              products.map((prod,idx)=><tr
-              key={prod._id}>
-                <th>{idx+1}</th>
+              products.map((prod, idx) => <tr
+                key={prod._id}>
+                <th>{idx + 1}</th>
                 <td>{prod.bookName}</td>
                 <td>{prod.author}</td>
                 <td>{prod.category}</td>
                 <td>{prod.reSalePrice}</td>
-                <td>{prod.available==="yes" ? 'Unsold':'Sold'}</td>
-                <td>{(((prod.advertised==="no" && prod.available==="no")) || (prod.advertised==="yes" && prod.available==="no") ||(prod.advertised==="yes" && prod.available==="yes")) ? <button className="btn btn-xs  mr-1" disabled>Advertised</button>:<button className="btn btn-xs border-0 bg-[#92B4EC] mr-1" onClick={()=>handleAdvertise(prod._id)}>Advertise</button>}</td>
+                <td>{prod.available === "yes" ? 'Unsold' : 'Sold'}</td>
+                <td>{(((prod.advertised === "no" && prod.available === "no")) || (prod.advertised === "yes" && prod.available === "no") || (prod.advertised === "yes" && prod.available === "yes")) ? <button className="btn btn-xs  mr-1" disabled>Advertised</button> : <button className="btn btn-xs border-0 bg-[#92B4EC] mr-1" onClick={() => handleAdvertise(prod._id)}>Advertise</button>}</td>
               </tr>)
             }
           </tbody>

@@ -48,7 +48,7 @@ export const router = createBrowserRouter([
             {
                 path: '/category/:name',
                 element: <BuyerRoute><OneCategoryPage></OneCategoryPage></BuyerRoute>,
-                loader:({params})=>fetch(`http://localhost:5000/category/${params.name}`)
+                loader: ({ params }) => fetch(`https://book-worm-server-omega.vercel.app/category/${params.name}`)
             },
             {
                 path: '/blog',
@@ -109,7 +109,7 @@ export const router = createBrowserRouter([
             {
                 path: "/dashboard/payment/:id",
                 element: <BuyerRoute><Payment></Payment></BuyerRoute>,
-                loader:({params})=>fetch(`http://localhost:5000/order/${params.id}`)
+                loader: ({ params }) => fetch(`https://book-worm-server-omega.vercel.app/order/${params.id}`)
             },
         ]
     }

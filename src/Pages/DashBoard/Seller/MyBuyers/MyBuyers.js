@@ -4,22 +4,22 @@ import { AuthContext } from '../../../../context/AuthProvider';
 //   locATION
 
 const MyBuyers = () => {
-  const {user} = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const { data: buyers = [] } = useQuery({
     queryKey: ['buyers'],
     queryFn: async () => {
-        const res = await fetch(`http://localhost:5000/mybuyers?email=${user.email}`,{
-          headers: {
-            authorization: `bearer ${localStorage.getItem('accessToken')}`
-            },
-        });
-        const data = await res.json();
-        return data
+      const res = await fetch(`https://book-worm-server-omega.vercel.app/mybuyers?email=${user.email}`, {
+        headers: {
+          authorization: `bearer ${localStorage.getItem('accessToken')}`
+        },
+      });
+      const data = await res.json();
+      return data
     }
-  });  
+  });
   return (
-        <div>
-            <div className="overflow-x-auto">
+    <div>
+      <div className="overflow-x-auto">
         <table className="table table-zebra w-full">
           {/* <!-- head --> */}
           <thead>
@@ -33,8 +33,8 @@ const MyBuyers = () => {
           </thead>
           <tbody>
             {
-              buyers.map((buyer,idx)=><tr key={buyer._id}>
-                <th>{idx+1}</th>
+              buyers.map((buyer, idx) => <tr key={buyer._id}>
+                <th>{idx + 1}</th>
                 <td>{buyer.name}</td>
                 <td>{buyer.email}</td>
                 <td>{buyer.phone ?? "N/A"}</td>
@@ -44,8 +44,8 @@ const MyBuyers = () => {
           </tbody>
         </table>
       </div>
-        </div>
-    );
+    </div>
+  );
 };
 
 export default MyBuyers;

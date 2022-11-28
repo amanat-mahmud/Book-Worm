@@ -10,16 +10,16 @@ import { AuthContext } from '../../../../context/AuthProvider';
 const AddProduct = () => {
     const navigate = useNavigate()
     const { register, formState: { errors }, handleSubmit } = useForm();
-    const {user} = useContext(AuthContext)
+    const { user } = useContext(AuthContext)
     const { data: seller = [] } = useQuery({
         queryKey: ['seller'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/user?email=${user.email}`);
+            const res = await fetch(`https://book-worm-server-omega.vercel.app/user?email=${user.email}`);
             const data = await res.json();
             return data
         }
-    }); 
-    const onSubmit = (data,event) => {
+    });
+    const onSubmit = (data, event) => {
         const form = event.target;
         const bookName = data.name;
         const author = data.author;
@@ -32,26 +32,27 @@ const AddProduct = () => {
         const yearOfUse = data.used
         const originalPrice = data.buyPrice
         getImageUrl(data.photo[0]).then(imgData => {
-            const book= {
-                bookName,author,reSalePrice,category,condition,description,sellerLocation,yearOfUse,originalPrice,
-                bookImage:imgData,sellerPhone:seller?.phone,
-                sellerEmail,available:"yes",advertised:"no",
+            const book = {
+                bookName, author, reSalePrice, category, condition, description, sellerLocation, yearOfUse, originalPrice,
+                bookImage: imgData, sellerPhone: seller?.phone,
+                sellerEmail, available: "yes", advertised: "no",
                 postedOn: new Date().toLocaleString()
             }
-            fetch('http://localhost:5000/book',{
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify(book)
-        }).then(res=>res.json()).then(data=>{
-            if(data.acknowledged){
-                form.reset()
-            toast.success("Book added")
-            navigate('/dashboard/myproducts')
-            }})
+            fetch('https://book-worm-server-omega.vercel.app/book', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(book)
+            }).then(res => res.json()).then(data => {
+                if (data.acknowledged) {
+                    form.reset()
+                    toast.success("Book added")
+                    navigate('/dashboard/myproducts')
+                }
+            })
         })
-        
+
     }
     return (
         <div >
@@ -117,8 +118,8 @@ const AddProduct = () => {
                     <label className="label">
                         <span className="label-text">Mobile no.</span>
                     </label>
-                    <input defaultValue={seller?.phone ?? ''} 
-                    {...register("mobile")} type="number" className="input input-bordered w-full" required disabled />
+                    <input defaultValue={seller?.phone ?? ''}
+                        {...register("mobile")} type="number" className="input input-bordered w-full" required disabled />
                 </div>
                 <div className="form-control w-4/5 md:w-1/2  md:mx-auto mx-10">
                     <label className="label">

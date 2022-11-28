@@ -3,8 +3,8 @@ import React, { useContext, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { AuthContext } from '../../../../context/AuthProvider';
 
-const CheckoutForm = ({orderedProduct }) => {
-    const {user} = useContext(AuthContext)
+const CheckoutForm = ({ orderedProduct }) => {
+    const { user } = useContext(AuthContext)
     const [cardError, setCardError] = useState('');
     const [success, setSuccess] = useState('');
     const [processing, setProcessing] = useState(false);
@@ -13,17 +13,17 @@ const CheckoutForm = ({orderedProduct }) => {
 
     const stripe = useStripe();
     const elements = useElements();
-    const { product_price,product_id,product_name,sellerEmail,buyerEmail } = orderedProduct;
+    const { product_price, product_id, product_name, sellerEmail, buyerEmail } = orderedProduct;
 
     useEffect(() => {
         // Create PaymentIntent as soon as the page loads
-        fetch("http://localhost:5000/create-payment-intent", {
+        fetch("https://book-worm-server-omega.vercel.app/create-payment-intent", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
             },
-            body: JSON.stringify({product_price}),
+            body: JSON.stringify({ product_price }),
         })
             .then((res) => res.json())
             .then((data) => setClientSecret(data.clientSecret));
@@ -61,10 +61,10 @@ const CheckoutForm = ({orderedProduct }) => {
                 payment_method: {
                     card: card,
                     billing_details: {
-                        name:user?.displayName,
-                        email:buyerEmail
+                        name: user?.displayName,
+                        email: buyerEmail
 
-                       
+
                     },
                 },
             },
@@ -80,10 +80,10 @@ const CheckoutForm = ({orderedProduct }) => {
             const payment = {
                 price: product_price,
                 transactionId: paymentIntent.id,
-                product_id,product_name,sellerEmail,buyerEmail
-               
+                product_id, product_name, sellerEmail, buyerEmail
+
             }
-            fetch('http://localhost:5000/payments', {
+            fetch('https://book-worm-server-omega.vercel.app/payments', {
                 method: 'PUT',
                 headers: {
                     'content-type': 'application/json',
@@ -98,7 +98,7 @@ const CheckoutForm = ({orderedProduct }) => {
                         setSuccess('Congrats! your payment completed');
                         setTransactionId(paymentIntent.id);
                         toast.success("Payment Successful")
-                        
+
                     }
                 })
         }
