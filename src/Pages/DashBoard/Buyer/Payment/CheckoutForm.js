@@ -1,5 +1,6 @@
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import React, { useContext, useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 import { AuthContext } from '../../../../context/AuthProvider';
 
 const CheckoutForm = ({orderedProduct }) => {
@@ -46,7 +47,7 @@ const CheckoutForm = ({orderedProduct }) => {
         });
 
         if (error) {
-            console.log(error);
+            // console.log(error);
             setCardError(error.message);
         }
         else {
@@ -74,7 +75,7 @@ const CheckoutForm = ({orderedProduct }) => {
             return;
         }
         if (paymentIntent.status === "succeeded") {
-            console.log('card info', card);
+            // console.log('card info', card);
             // store payment info in the database
             const payment = {
                 price: product_price,
@@ -96,6 +97,8 @@ const CheckoutForm = ({orderedProduct }) => {
                     if (data.insertedId) {
                         setSuccess('Congrats! your payment completed');
                         setTransactionId(paymentIntent.id);
+                        toast.success("Payment Successful")
+                        
                     }
                 })
         }

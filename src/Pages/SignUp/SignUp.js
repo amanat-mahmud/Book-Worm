@@ -32,7 +32,7 @@ const SignUp = () => {
                                     generateToken(data.email)
                                 }})
                               .catch(err=>{
-                                console.log(err)
+                                 console.log(err)
                                 toast.error("Sign up error")
                             })
                             setLoading(false);

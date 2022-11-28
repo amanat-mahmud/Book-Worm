@@ -20,7 +20,10 @@ const ModalBody = ({sendBook,setSendBook}) => {
         fetch('http://localhost:5000/order',{
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                headers: {
+                    authorization: `bearer ${localStorage.getItem('accessToken')}`
+                    },
               },
               body: JSON.stringify(order)
         })

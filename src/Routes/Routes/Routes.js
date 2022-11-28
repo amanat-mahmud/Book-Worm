@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import DashBoardLayout from "../../layout/DashBoardLayout";
 import Main from "../../layout/Main";
 import Advertised from "../../Pages/Advertised/Advertised";
+import Blog from "../../Pages/Blog/Blog";
 import Category from "../../Pages/Category/Categories";
 import OneCategoryPage from "../../Pages/Category/OneCategoryPage";
 import AllBuyer from "../../Pages/DashBoard/Admin/AllBuyer/AllBuyer";
@@ -22,6 +23,7 @@ import AdminRoute from "../AdminRoute/AdminRoute";
 import BuyerRoute from "../BuyerRoute/BuyerRoute";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import SellerRoute from "../SellerRoute/SellerRoute";
+import SpecialRouteforCategories from "../SpecialRouteforCategories";
 export const router = createBrowserRouter([
     {
         path: '/',
@@ -33,16 +35,24 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/advertised',
-                element: <BuyerRoute><Advertised></Advertised></BuyerRoute>
+                element: <SpecialRouteforCategories>
+                    <Advertised></Advertised>
+                </SpecialRouteforCategories>
             },
             {
                 path: '/categories',
-                element: <BuyerRoute><Category></Category></BuyerRoute>
+                element: <SpecialRouteforCategories>
+                    <Category></Category>
+                </SpecialRouteforCategories>
             },
             {
                 path: '/category/:name',
                 element: <BuyerRoute><OneCategoryPage></OneCategoryPage></BuyerRoute>,
                 loader:({params})=>fetch(`http://localhost:5000/category/${params.name}`)
+            },
+            {
+                path: '/blog',
+                element: <Blog></Blog>
             },
 
         ],

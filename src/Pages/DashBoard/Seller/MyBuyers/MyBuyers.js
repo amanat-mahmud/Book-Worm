@@ -8,7 +8,11 @@ const MyBuyers = () => {
   const { data: buyers = [] } = useQuery({
     queryKey: ['buyers'],
     queryFn: async () => {
-        const res = await fetch(`http://localhost:5000/mybuyers?email=${user.email}`);
+        const res = await fetch(`http://localhost:5000/mybuyers?email=${user.email}`,{
+          headers: {
+            authorization: `bearer ${localStorage.getItem('accessToken')}`
+            },
+        });
         const data = await res.json();
         return data
     }

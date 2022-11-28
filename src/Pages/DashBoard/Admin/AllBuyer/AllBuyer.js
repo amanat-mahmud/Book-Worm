@@ -1,10 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
+import React, { useContext } from 'react';
 import toast from 'react-hot-toast';
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
+import { AuthContext } from '../../../../context/AuthProvider';
 const MySwal = withReactContent(Swal)
 const AllBuyer = () => {
+  const {user} = useContext(AuthContext)
     const { data: buyers = [] , refetch } = useQuery({
         queryKey: ['buyers'],
         queryFn: async () => {
@@ -15,7 +17,7 @@ const AllBuyer = () => {
     });
     const handleVerify = (buyer) =>{
       // console.log(buyer);
-      fetch(`http://localhost:5000/verify?email=${buyer.email}`,{
+      fetch(`http://localhost:5000/verify?email=${user?.email}&verify=${buyer.email}`,{
         method: 'PUT',
         headers: {
           authorization: `bearer ${localStorage.getItem('accessToken')}`
@@ -41,8 +43,11 @@ const AllBuyer = () => {
         confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
         if (result.isConfirmed) {
-            fetch(`http://localhost:5000/user?email=${buyer.email}`, {
-                method: 'DELETE'
+            fetch(`http://localhost:5000/user?email=${user?.email}&delete=${buyer?.email}`, {
+                method: 'DELETE',
+                headers: {
+                  authorization: `bearer ${localStorage.getItem('accessToken')}`
+                  },
             })
                 .then(res => res.json())
                 .then(data => {
