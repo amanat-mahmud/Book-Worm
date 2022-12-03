@@ -15,7 +15,7 @@ const SingleItem = ({ book }) => {
     }, [sellerEmail])
     const [sendBook, setSendBook] = useState();
     const handleReport = (id) => {
-        fetch(`https://book-worm-server-amanatumahmud.vercel.app/books?id=${id}&email=${user.email}`, {
+        fetch(`https://book-worm-server-omega.vercel.app/books?id=${id}&email=${user.email}`, {
 
             method: 'PUT',
             headers: {
