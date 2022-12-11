@@ -1,7 +1,7 @@
 <h1 align="center">Hi 👋, I'm Amanat Ullah Mahmud</h1>
 <h3 align="center">A passionate frontend developer from Bangladesh</h3>
 
-- 👨‍💻 All of my projects are available at [https://github.com/amanat-mahmud?tab=repositories](https://github.com/amanat-mahmud?tab=repositories)
+- 👨‍💻 All of my projects are available at <a href="https://github.com/amanat-mahmud?tab=repositories">Repositories</a>
 
 - <a href="https://book-worm-65870.web.app/">Book Worm</a> - a photographer's portfolio website.</h4>
 
