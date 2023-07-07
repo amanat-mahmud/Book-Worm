@@ -3,7 +3,7 @@
 
 - 👨‍💻 All of my projects are available at <a href="https://github.com/amanat-mahmud?tab=repositories">Repositories</a>
 
-- <a href="https://book-worm-65870.web.app/">Book Worm</a> - a photographer's portfolio website.</h4>
+- <a href="https://book-worm-65870.web.app/">Book Worm</a> - a 2nd hand book selling website.</h4>
 
 <ul><h3>📝 Site Features</h3>
 <li>Appealing home page with dynamic advertised route which is hidden when there are no items.</li>
